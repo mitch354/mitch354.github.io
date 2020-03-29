@@ -17,11 +17,3 @@ specified criteria (i.e all submissions by armbar)
 are currently scheduled to fight as well as historical information
 * Updated frequently by web scraping Python Scripts
 * **Tools:** <img src="/assets/img/node.png" title="Node.js" width="40"><img src="/assets/img/html5.png" width="45" title="html5"><img src="/assets/img/python.png" width="40" title='Python'>
-
-
-## Academic Projects
-
-[Weight Cut Project](https://github.com/mitch354/MMAWeightCutProject)
-* Final project for my computational data science course
-* Includes all steps of the Data Science pipeline, from ETL to Data Visualization
-* **Tools:** <img src="/assets/img/python.png" width="40" title='Python'> <img src="/assets/img/scikit-learn.png" width="60" title='scikit-learn'>
