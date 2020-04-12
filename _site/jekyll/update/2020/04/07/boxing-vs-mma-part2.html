@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.5.0 -->
+<title>Boxing vs MMA - Part 2 | Mitchell Hole</title>
+<meta name="generator" content="Jekyll v3.8.5" />
+<meta property="og:title" content="Boxing vs MMA - Part 2" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Goal" />
+<meta property="og:description" content="Goal" />
+<link rel="canonical" href="http://localhost:4000/jekyll/update/2020/04/07/boxing-vs-mma-part2.html" />
+<meta property="og:url" content="http://localhost:4000/jekyll/update/2020/04/07/boxing-vs-mma-part2.html" />
+<meta property="og:site_name" content="Mitchell Hole" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2020-04-07T07:43:49-07:00" />
+<script type="application/ld+json">
+{"description":"Goal","@type":"BlogPosting","url":"http://localhost:4000/jekyll/update/2020/04/07/boxing-vs-mma-part2.html","headline":"Boxing vs MMA - Part 2","dateModified":"2020-04-07T07:43:49-07:00","datePublished":"2020-04-07T07:43:49-07:00","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/jekyll/update/2020/04/07/boxing-vs-mma-part2.html"},"@context":"http://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Mitchell Hole" /></head>
+<body><header class="site-header" role="banner">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Mitchell Hole</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/about/">About</a><a class="page-link" href="/Projects/">Projects</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">Boxing vs MMA - Part 2</h1>
+    <p class="post-meta">
+      <time class="dt-published" datetime="2020-04-07T07:43:49-07:00" itemprop="datePublished">Apr 7, 2020
+      </time></p>
+  </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <h3 id="goal">Goal</h3>
+
+<p>Compare and contrast top ranked boxers against top ranked MMA fighters. This part will focus on strength of competition; analyzing the quality of opponents ranked boxers and MMA fighters have faced to date.</p>
+
+<h3 id="data-collection">Data Collection</h3>
+
+<p>Same DataFrames as before with some additions:</p>
+
+<p><code class="highlighter-rouge">"OppWins"</code> - <em>Int</em> - Sum of the number of wins the opponents had at the time of the matchups</p>
+
+<p><code class="highlighter-rouge">"OppDraws"</code> - <em>Int</em> - Sum of the number of draws the opponents had at the time of the matchups</p>
+
+<p><code class="highlighter-rouge">"OppLosses"</code> - <em>Int</em> - Sum of the number of losses the opponents had at the time of the matchups</p>
+
+<p><code class="highlighter-rouge">"RankedOpps"</code> - <em>Int</em> - Number of opponents fought who are currently ranked</p>
+
+<p>To get these I scraped data from individual fighter pages on Boxrec and Tapology eg:</p>
+
+<p><a href="https://boxrec.com/en/proboxer/479205">Tyson Fury</a></p>
+
+<p><a href="https://www.tapology.com/fightcenter/fighters/14607-conor-mcgregor">Conor McGregor</a></p>
+
+<h3 id="results">Results</h3>
+
+<p>We left off the last post with this comparison of win ratios between MMA and Boxing:</p>
+
+<p><img src="/assets/img/2020-04-04/hist3.png" title="hist3" /></p>
+
+<p>The disparity in the shapes between the distributions led me to wanting to more closely compare the records of MMA fighters and boxers.</p>
+
+<p><strong><em>Comparing quality of opponents</em></strong></p>
+
+<p><em>Opposition’s Record</em></p>
+
+<p>Plotted here are the sum of each of fighter’s opponents wins and losses at the time that they fought:</p>
+
+<p><img src="/imgs/2020-04-08/scatter.png" title="scatter" /></p>
+
+<p>The regression lines are remarkably similar in slope and the difference in intercept makes sense because as we saw in the last article the average ranked boxer has ~3 more fights. There is a massive difference in variance though. Amongst ranked fighters UFC athletes tend to have faced opponents with similar records overall on the way up. This can very widely from boxer to boxer though.</p>
+
+<p>I think more than anything this disparity speaks to the level of control a boxer has over their career compared to MMA fighters. The attitude in MMA is ‘the best fight the best’ and ‘anytime, anywhere’. With more promoters, sanctioning bodies, etc. in boxing their allegiance is more to themselves and they can, to some extent, matchmake how they see fit.</p>
+
+<p>There were several notable outliers with respect to High Opponent Losses, Low Opponents wins in the boxing plot so I decided to take a closer look:</p>
+
+<p><img src="/imgs/2020-04-08/scatter-named.png" title="scatter-named" /></p>
+
+<p>The outliers are all British fighters. This was an unexpected finding but after looking at these fighters individually I saw a pattern. Their first 10 or so fights were filled with fighters with TERRIBLE records. Kell Brook’s first opponent was 31-189. After these first 10 or so fights they start fighting better opposition.</p>
+
+<p><em>Ranked Opponents</em></p>
+
+<p><img src="/imgs/2020-04-08/boxplot.png" title="boxplot" /></p>
+
+<p>It comes as little surprise that MMA fighters are fighting other ranked guys more often then their counterparts in boxing. With different sanctioning bodies, promotions and broadcasters these fights don’t come together as easily as they do in the UFC’s monopolistic business. This is all despite having fewer total fights on average.</p>
+
+<p>This is a product of MMA fighters usually reaching the highest level of competition with far fewer fights than boxers. Boxers tend to take many, lower level, build up fights in the early stages of their career. MMA fighters in contrast have a more linear build up when it comes to competition level.</p>
+
+  </div><a class="u-url" href="/jekyll/update/2020/04/07/boxing-vs-mma-part2.html" hidden></a>
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">Mitchell Hole</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">Mitchell Hole</li><li><a class="u-email" href="mailto:mhole@sfu.ca">mhole@sfu.ca</a></li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/mitch354"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">mitch354</span></a></li><li><a href="https://www.linkedin.com/in/mitchell-hole-3646a9162"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#linkedin"></use></svg> <span class="username">mitchell-hole-3646a9162</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>Projects &amp; Experience</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

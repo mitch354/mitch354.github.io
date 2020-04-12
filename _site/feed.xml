@@ -1,0 +1,384 @@
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2020-04-12T05:57:36-07:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Mitchell Hole</title><subtitle>Projects &amp; Experience</subtitle><entry><title type="html">Boxing vs MMA - Part 2</title><link href="http://localhost:4000/jekyll/update/2020/04/07/boxing-vs-mma-part2.html" rel="alternate" type="text/html" title="Boxing vs MMA - Part 2" /><published>2020-04-07T07:43:49-07:00</published><updated>2020-04-07T07:43:49-07:00</updated><id>http://localhost:4000/jekyll/update/2020/04/07/boxing-vs-mma-part2</id><content type="html" xml:base="http://localhost:4000/jekyll/update/2020/04/07/boxing-vs-mma-part2.html">&lt;h3 id=&quot;goal&quot;&gt;Goal&lt;/h3&gt;
+
+&lt;p&gt;Compare and contrast top ranked boxers against top ranked MMA fighters. This part will focus on strength of competition; analyzing the quality of opponents ranked boxers and MMA fighters have faced to date.&lt;/p&gt;
+
+&lt;h3 id=&quot;data-collection&quot;&gt;Data Collection&lt;/h3&gt;
+
+&lt;p&gt;Same DataFrames as before with some additions:&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;&quot;OppWins&quot;&lt;/code&gt; - &lt;em&gt;Int&lt;/em&gt; - Sum of the number of wins the opponents had at the time of the matchups&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;&quot;OppDraws&quot;&lt;/code&gt; - &lt;em&gt;Int&lt;/em&gt; - Sum of the number of draws the opponents had at the time of the matchups&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;&quot;OppLosses&quot;&lt;/code&gt; - &lt;em&gt;Int&lt;/em&gt; - Sum of the number of losses the opponents had at the time of the matchups&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;&quot;RankedOpps&quot;&lt;/code&gt; - &lt;em&gt;Int&lt;/em&gt; - Number of opponents fought who are currently ranked&lt;/p&gt;
+
+&lt;p&gt;To get these I scraped data from individual fighter pages on Boxrec and Tapology eg:&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://boxrec.com/en/proboxer/479205&quot;&gt;Tyson Fury&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://www.tapology.com/fightcenter/fighters/14607-conor-mcgregor&quot;&gt;Conor McGregor&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;results&quot;&gt;Results&lt;/h3&gt;
+
+&lt;p&gt;We left off the last post with this comparison of win ratios between MMA and Boxing:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/img/2020-04-04/hist3.png&quot; title=&quot;hist3&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;The disparity in the shapes between the distributions led me to wanting to more closely compare the records of MMA fighters and boxers.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;&lt;em&gt;Comparing quality of opponents&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;Opposition’s Record&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;Plotted here are the sum of each of fighter’s opponents wins and losses at the time that they fought:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/imgs/2020-04-08/scatter.png&quot; title=&quot;scatter&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;The regression lines are remarkably similar in slope and the difference in intercept makes sense because as we saw in the last article the average ranked boxer has ~3 more fights. There is a massive difference in variance though. Amongst ranked fighters UFC athletes tend to have faced opponents with similar records overall on the way up. This can very widely from boxer to boxer though.&lt;/p&gt;
+
+&lt;p&gt;I think more than anything this disparity speaks to the level of control a boxer has over their career compared to MMA fighters. The attitude in MMA is ‘the best fight the best’ and ‘anytime, anywhere’. With more promoters, sanctioning bodies, etc. in boxing their allegiance is more to themselves and they can, to some extent, matchmake how they see fit.&lt;/p&gt;
+
+&lt;p&gt;There were several notable outliers with respect to High Opponent Losses, Low Opponents wins in the boxing plot so I decided to take a closer look:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/imgs/2020-04-08/scatter-named.png&quot; title=&quot;scatter-named&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;The outliers are all British fighters. This was an unexpected finding but after looking at these fighters individually I saw a pattern. Their first 10 or so fights were filled with fighters with TERRIBLE records. Kell Brook’s first opponent was 31-189. After these first 10 or so fights they start fighting better opposition.&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;Ranked Opponents&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/imgs/2020-04-08/boxplot.png&quot; title=&quot;boxplot&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;It comes as little surprise that MMA fighters are fighting other ranked guys more often then their counterparts in boxing. With different sanctioning bodies, promotions and broadcasters these fights don’t come together as easily as they do in the UFC’s monopolistic business. This is all despite having fewer total fights on average.&lt;/p&gt;
+
+&lt;p&gt;This is a product of MMA fighters usually reaching the highest level of competition with far fewer fights than boxers. Boxers tend to take many, lower level, build up fights in the early stages of their career. MMA fighters in contrast have a more linear build up when it comes to competition level.&lt;/p&gt;</content><author><name></name></author><summary type="html">Goal</summary></entry><entry><title type="html">Boxing vs MMA - Part 1</title><link href="http://localhost:4000/jekyll/update/2020/04/04/boxing-vs-mma.html" rel="alternate" type="text/html" title="Boxing vs MMA - Part 1" /><published>2020-04-04T15:43:49-07:00</published><updated>2020-04-04T15:43:49-07:00</updated><id>http://localhost:4000/jekyll/update/2020/04/04/boxing-vs-mma</id><content type="html" xml:base="http://localhost:4000/jekyll/update/2020/04/04/boxing-vs-mma.html">&lt;h3 id=&quot;goal&quot;&gt;Goal&lt;/h3&gt;
+
+&lt;p&gt;Compare and contrast top ranked boxers against top ranked MMA fighters. This part will focus on Stance, Age and Record. The next part will dive deeper into strength of competition.&lt;/p&gt;
+
+&lt;h3 id=&quot;data-collection&quot;&gt;Data Collection&lt;/h3&gt;
+
+&lt;p&gt;Used Selenium with Headless Chrome to scrape boxer stats from https://boxrec.com/en/ratings and used MMA data I had already gathered. Put into two Pandas dataframes with features:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;column_names = ['Weightclass', 'Name', 'Age', 'Stance', 'Wins', 'Losses', 'Draws', 'Link']
+boxersDF = pd.DataFrame(columns = column_names)
+mmaDF = pd.DataFrame(columns = column_names)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;&quot;Weightclass&quot;&lt;/code&gt; - &lt;em&gt;String&lt;/em&gt; - What weight the fighter was competes at&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;&quot;Name&quot;&lt;/code&gt; - &lt;em&gt;String&lt;/em&gt; - Name of the fighter&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;&quot;Age&quot;&lt;/code&gt; - &lt;em&gt;Int&lt;/em&gt; - Age of the fighter in years&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;&quot;Stance&quot;&lt;/code&gt; - &lt;em&gt;[‘southpaw’, ‘orthodox’]&lt;/em&gt; - Which foot/hand the fighter leads with&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;&quot;Wins&quot;&lt;/code&gt; - &lt;em&gt;Int&lt;/em&gt; - Number of wins the fighter has accumulated&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;&quot;Losses&quot;&lt;/code&gt; - &lt;em&gt;Int&lt;/em&gt; - Number of losses the fighter has accumulated&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;&quot;Draws&quot;&lt;/code&gt; - &lt;em&gt;Int&lt;/em&gt; - Number of draws the fighter has accumulated&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;&quot;Link&quot;&lt;/code&gt; - &lt;em&gt;String&lt;/em&gt; - For future processing. Links to the fighters Tapology / Box Rec page where their strength of competition may be analized&lt;/p&gt;
+
+&lt;h3 id=&quot;results&quot;&gt;Results&lt;/h3&gt;
+
+&lt;p&gt;&lt;strong&gt;&lt;em&gt;Comparison of Stances between MMA &amp;amp; Boxing&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/img/2020-04-04/bar.png&quot; title=&quot;bar&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Boxing seems to have a bit more a proclivity towards southpaw fighters but, at 31% probability of the same means, there’s not strong enough evidence to confirm. Let’s take a closer look by breaking down the distribution by weight class:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/img/2020-04-04/mmavboxing.png&quot; title=&quot;mmavboxing&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;MMA has an outlier in the welterweight division where 9/16 of the fighters in the sample are southpaws. If we take this division out as well as the boxing division with the most southpaws (featherweight) we get:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/img/2020-04-04/bar2.png&quot; title=&quot;bar2&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;With the outliers removed there’s a 7.3% chance these datasets have the mean. Still a larger sample size should be taken for an affirmative answer. It would also be interesting to explore if the welterweight division remains an outlier or if this was just a chance sampling.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;&lt;em&gt;Comparison of age between MMA &amp;amp; Boxing&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-Python&quot;&gt;print(&quot;MMA Normality Test: &quot; + str(stats.normaltest(mmaDF['Age']).pvalue))
+print(&quot;Boxing Normality Test: &quot; + str(stats.normaltest(boxersDF['Age']).pvalue))
+print(&quot;Probability of equal variance: &quot; + str(stats.levene(mmaDF['Age'], boxersDF['Age']).pvalue))
+
+MMA Normality Test: 0.03781844203980707
+Boxing Normality Test: 0.48667341957628285
+Probability of equal variance: 0.9556934435227888
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The normal test, as it often does, failed for MMA fighters but inspecting the curves reveals that both data sets have somewhat normal shapes.
+&lt;img src=&quot;/assets/img/2020-04-04/age_hist.png&quot; title=&quot;age_hist&quot; /&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-Python&quot;&gt;print(&quot;MMA mean: &quot; + str(mmaDF['Age'].mean()))
+print(&quot;Boxing mean: &quot; + str(boxersDF['Age'].mean()))
+print(&quot;Probability of equal means: &quot; + str(stats.ttest_ind(mmaDF['Age'], boxersDF['Age']).pvalue))
+
+MMA mean: 31.80314960629921
+Boxing mean: 29.909774436090224
+Probability of equal means: 4.56981195468321e-05
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Top boxers are around two years younger than their MMA counterparts. This aligns with my intuition. Young boxers such as Ryan Garcia (21), Davin Haney (21), and Vergil Ortiz Jr. (22) are already prime to contend in their divisions. It is very rare to see a fighter this age in the UFC, let alone ranked. Most at this age probably only have a handful of fights.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;&lt;em&gt;Comparison of fight numbers between MMA &amp;amp; Boxing&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;Total Fights&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;The data is a little less normal here but the distributions are similarly shaped and it’s clear that the average boxer has more fights than the average MMA fighter. This is more revealing when you consider the age discrepancy described above. I’d need additional data to shed more light on it but I expect boxers are starting earlier and packing in a ton of fights in their early careers. Once guys hit the elite level, i.e the ones chosen for this survey, 2 fights a year is the standard convention.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/img/2020-04-04/hist2.png&quot; title=&quot;hist2&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;Win Ratio&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/img/2020-04-04/hist3.png&quot; title=&quot;hist3&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;These distributions could not be more distinct and seem to echo the common sentiment that the best don’t fight the best in boxing. A more in depth breakdown of this will be presented in the next article.&lt;/p&gt;</content><author><name></name></author><summary type="html">Goal</summary></entry><entry><title type="html">Grappling Analysis - Best Fights and Promotions</title><link href="http://localhost:4000/jekyll/update/2020/03/30/grappling.html" rel="alternate" type="text/html" title="Grappling Analysis - Best Fights and Promotions" /><published>2020-03-30T15:43:49-07:00</published><updated>2020-03-30T15:43:49-07:00</updated><id>http://localhost:4000/jekyll/update/2020/03/30/grappling</id><content type="html" xml:base="http://localhost:4000/jekyll/update/2020/03/30/grappling.html">&lt;h3 id=&quot;goal&quot;&gt;Goal&lt;/h3&gt;
+
+&lt;p&gt;Systematically rank the MMA fights based on their grappling components. Activity and competitiveness are the main attributes desired here. There are many great grappling performances that were quick and one sided but here I’m looking for fights where both fighters had some level as success.&lt;/p&gt;
+
+&lt;h3 id=&quot;data-collection&quot;&gt;Data Collection&lt;/h3&gt;
+
+&lt;p&gt;Used Selenium with Headless Chrome to scrape fight stats from &lt;a href=&quot;http://www.ufcstats.com/statistics/events/completed&quot;&gt;ufcstats.com&lt;/a&gt;. Put into a Pandas dataframe with features:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-Python&quot;&gt;column_names = [&quot;Weightclass&quot;, &quot;Submission&quot;, &quot;Rounds&quot;, &quot;Date&quot;, &quot;A_name&quot;, &quot;A_takedowns&quot;, &quot;A_takedown_attempts&quot;, &quot;A_ground_strikes&quot;, &quot;A_ground_strike_ratio&quot;, &quot;A_sub_attempts&quot;, &quot;A_passes&quot;, &quot;A_reversals&quot;, &quot;B_name&quot;, &quot;B_takedowns&quot;, &quot;B_takedown_attempts&quot;, &quot;B_ground_strikes&quot;, &quot;B_ground_strike_ratio&quot;, &quot;B_sub_attempts&quot;, &quot;B_passes&quot;, &quot;B_reversals&quot;]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;&quot;Weightclass&quot;&lt;/code&gt; - &lt;em&gt;String&lt;/em&gt; - What weight the fight was held at&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;&quot;Submission&quot;&lt;/code&gt; - &lt;em&gt;Boolean&lt;/em&gt; - Whether or not the fight ended with a Submission&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;&quot;Rounds&quot;&lt;/code&gt; - &lt;em&gt;int&lt;/em&gt; - How many rounds the bout lasted&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;&quot;Date&quot;&lt;/code&gt; - &lt;em&gt;datetime&lt;/em&gt; - When the bout took place&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;&quot;A_name&quot;&lt;/code&gt; - &lt;em&gt;String&lt;/em&gt; - the name of Fighter A&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;&quot;A_takedowns&quot;&lt;/code&gt; - &lt;em&gt;Int&lt;/em&gt; - The number of takedowns completed by fighter A&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;&quot;A_takedowns_attempts&quot;&lt;/code&gt; - &lt;em&gt;Int&lt;/em&gt; - The number of takedowns attempted by fighter A (complete + incomplete)&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;&quot;A_ground_strikes&quot;&lt;/code&gt; - &lt;em&gt;Int&lt;/em&gt; - Number of strikes landed by fighter A while on the ground&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;&quot;A_ground_strike_ratio&quot;&lt;/code&gt; - &lt;em&gt;Float&lt;/em&gt; - A_ground_strikes / total number of strikes&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;&quot;A_sub_attempts&quot;&lt;/code&gt; - &lt;em&gt;Int&lt;/em&gt; - The number of Submission attempts attempted by fighter B&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;&quot;A_passes&quot;&lt;/code&gt; - &lt;em&gt;Int&lt;/em&gt; - The number of times fighter A passed fighter B’s guard&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;A_reversals&lt;/code&gt; - &lt;em&gt;Int&lt;/em&gt; - The number of times fighter A swept or reversed fighter&lt;/p&gt;
+
+&lt;p&gt;The columns for fighter B follow the above definitions&lt;/p&gt;
+
+&lt;p&gt;Fights with this form were gathered separately for the UFC, WEC, Strikeforce and Pride organizations and merged together when needed for analysis.&lt;/p&gt;
+
+&lt;h3 id=&quot;data-cleaning--engineering&quot;&gt;Data Cleaning &amp;amp; Engineering&lt;/h3&gt;
+
+&lt;h1 id=&quot;calculating-grapple-score&quot;&gt;Calculating Grapple Score&lt;/h1&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-Python&quot;&gt;def getGrappleScore(fight):
+    A_score = 1
+    A_score += 0.75 * fight.A_takedowns
+    A_score +=  (1/4) * fight.A_takedown_attempts
+    A_score += 1.75 * fight.A_passes
+    A_score += 3 * fight.A_reversals
+    A_score += 2.5 * fight.A_sub_attempts
+    A_score += (0.2 * fight.A_ground_strike_ratio) * fight.A_ground_strikes
+    B_score = 1
+    ### ...
+    ### Same as above
+    ### ...
+    B_score += (0.2 * fight.B_ground_strike_ratio) * fight.B_ground_strikes
+    Fight_Score = fight.Submission * 4 + (A_score + B_score) * (1 - ((max(A_score,B_score) - min(A_score,B_score))**1.5/max(A_score,B_score)**1.5)) * (1 - fight.Rounds * .05)
+    return Fight_Score
+
+ufc_df['Score'] = ufc_df.apply(lambda X: getGrappleScore(X), axis=1)
+wec_df['Score'] = wec_df.apply(lambda X: getGrappleScore(X), axis=1)
+strikeforce_df['Score'] = strikeforce_df.apply(lambda X: getGrappleScore(X), axis=1)
+pride_df['Score'] = pride_df.apply(lambda X: getGrappleScore(X), axis=1)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;hr /&gt;
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-Python&quot;&gt;A_score = 1
+A_score += 0.75 * fight.A_takedowns
+A_score +=  (1/4) * fight.A_takedown_attempts
+A_score += 1.75 * fight.A_passes
+A_score += 3 * fight.A_reversals
+A_score += 2.5 * fight.A_sub_attempts
+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;A_score/B_score are started at 1 to avoid a potential division by 0 error. Otherwise the individual scores are just a linear combination of the fighter’s grappling stats with different weights. Reversals are highly rewarded because they indicate an exchange in which both fighters had some level of success. Submission attempts, passes, takedowns and takedown attempts were likewise scaled by how much I believed they contributed to an active grappling match.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-Python&quot;&gt;A_score += (0.2 * fight.A_ground_strike_ratio) * fight.A_ground_strikes
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Ground strikes, being the easiest stat to accumulate, were a bit more difficult to factor in and were scaled down to no dominate the score. In lieu of being able to find stats regarding total time on the ground I also used ground_strike_ratio in this term as an approximation of top control time (the fighter on top usually lands significant strikes at a much higher rate). If a fighter has a high ground strike ratio it’s likely they spent a significant portion of the fight on top of their opponent instead of on the bottom or just standup.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-Python&quot;&gt;Fight_Score = fight.Submission * 4 + (A_score + B_score) * (1 - ((max(A_score,B_score) - min(A_score,B_score))**1.5/max(A_score,B_score)**1.5)) * (1 - fight.Rounds * .05)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;fight.Submission * 4&lt;/code&gt; - Rewarding a fight for ending in a Submission&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;(A_score + B_score)&lt;/code&gt; - Sum of both fighters scores&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;((max(A_score,B_score) - min(A_score,B_score))**1.5/max(A_score,B_score)**1.5)&lt;/code&gt; - Returns a number in [0.0, 1.0], the closer to 1 the closer the fight scores for each fighter were. I found the term on its own was too punishing and the term squared wasn’t enough so settled at raising the term to the power of 1.5.&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;(1 - fight.Rounds * .05)&lt;/code&gt; - Fights with more rounds will naturally have more stats accumulated so this term makes the fight score consider that.&lt;/p&gt;
+
+&lt;h3 id=&quot;results&quot;&gt;Results&lt;/h3&gt;
+
+&lt;p&gt;&lt;strong&gt;Top 25 Grappling Fights:&lt;/strong&gt;&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Fighter A&lt;/th&gt;
+      &lt;th&gt;Fighter B&lt;/th&gt;
+      &lt;th&gt;Score&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Louis Smolka&lt;/td&gt;
+      &lt;td&gt;Tim Elliott&lt;/td&gt;
+      &lt;td&gt;52.593&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Nate Diaz&lt;/td&gt;
+      &lt;td&gt;Alejandro Garcia&lt;/td&gt;
+      &lt;td&gt;49.244&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;John Alessio&lt;/td&gt;
+      &lt;td&gt;Alex Serdyukov&lt;/td&gt;
+      &lt;td&gt;47.303&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Russell Doane&lt;/td&gt;
+      &lt;td&gt;Jerrod Sanders&lt;/td&gt;
+      &lt;td&gt;46.976&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Ed Herman&lt;/td&gt;
+      &lt;td&gt;Kendall Grove&lt;/td&gt;
+      &lt;td&gt;45.07&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Magomed Magomedov&lt;/td&gt;
+      &lt;td&gt;Petr Yan&lt;/td&gt;
+      &lt;td&gt;44.818&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Chris Wade&lt;/td&gt;
+      &lt;td&gt;Islam Makhachev&lt;/td&gt;
+      &lt;td&gt;44.595&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Antonio Rodrigo Nogueira&lt;/td&gt;
+      &lt;td&gt;Bob Sapp&lt;/td&gt;
+      &lt;td&gt;44.47&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Michinori Tanaka&lt;/td&gt;
+      &lt;td&gt;Kyung Ho Kang&lt;/td&gt;
+      &lt;td&gt;44.219&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Matt Grice&lt;/td&gt;
+      &lt;td&gt;Jason Black&lt;/td&gt;
+      &lt;td&gt;40.897&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Kevin Holland&lt;/td&gt;
+      &lt;td&gt;Gerald Meerschaert&lt;/td&gt;
+      &lt;td&gt;40.41&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;John Hathaway&lt;/td&gt;
+      &lt;td&gt;Rick Story&lt;/td&gt;
+      &lt;td&gt;40.199&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Cub Swanson&lt;/td&gt;
+      &lt;td&gt;Micah Miller&lt;/td&gt;
+      &lt;td&gt;39.002&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Carlos Condit&lt;/td&gt;
+      &lt;td&gt;Jake Ellenberger&lt;/td&gt;
+      &lt;td&gt;38.847&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Heath Herring&lt;/td&gt;
+      &lt;td&gt;Cheick Kongo&lt;/td&gt;
+      &lt;td&gt;38.615&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Chase Beebe&lt;/td&gt;
+      &lt;td&gt;Rani Yahya&lt;/td&gt;
+      &lt;td&gt;38.329&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Dan Henderson&lt;/td&gt;
+      &lt;td&gt;Yuki Kondo&lt;/td&gt;
+      &lt;td&gt;38.309&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Quinton Jackson&lt;/td&gt;
+      &lt;td&gt;Murilo Rua&lt;/td&gt;
+      &lt;td&gt;38.096&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Demian Maia&lt;/td&gt;
+      &lt;td&gt;Jason MacDonald&lt;/td&gt;
+      &lt;td&gt;36.977&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Paddy Holohan&lt;/td&gt;
+      &lt;td&gt;Louis Smolka&lt;/td&gt;
+      &lt;td&gt;36.839&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Gerald Meerschaert&lt;/td&gt;
+      &lt;td&gt;Oskar Piechota&lt;/td&gt;
+      &lt;td&gt;36.689&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Ricardo Lamas&lt;/td&gt;
+      &lt;td&gt;Dave Jansen&lt;/td&gt;
+      &lt;td&gt;36.466&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Dan Henderson&lt;/td&gt;
+      &lt;td&gt;Murilo Rua&lt;/td&gt;
+      &lt;td&gt;36.355&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Jared Hamman&lt;/td&gt;
+      &lt;td&gt;Rodney Wallace&lt;/td&gt;
+      &lt;td&gt;36.267&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Ben Rothwell&lt;/td&gt;
+      &lt;td&gt;Gilbert Yvel&lt;/td&gt;
+      &lt;td&gt;36.13&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;&lt;strong&gt;Grappling Score by Promotion:&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/img/2020-03-30/heatmap.png&quot; title=&quot;heatmap&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/img/2020-03-30/histogram.png&quot; title=&quot;histogram&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;All promotions share a very similar, extremely right skewed distributions; close to a geometric. This is a product of many fights having no grappling components at all or if they do, then they’re extremely one sided. Pride &amp;amp; WEC have noticeably higher means and this aligns with my ‘eyeball’ test.&lt;/p&gt;
+
+&lt;p&gt;Pride’s events took place in the early to mid 2000’s when the grappling meta wasn’t close to where it is today. WEC mostly featured fights in the lighter weight classes, 155lbs and lower, where physical attributes naturally lead to more scrambles and exciting grappling exchanges.&lt;/p&gt;</content><author><name></name></author><summary type="html">Goal</summary></entry><entry><title type="html">Weightcutting Analysis</title><link href="http://localhost:4000/jekyll/update/2019/03/14/welcome-to-jekyll.html" rel="alternate" type="text/html" title="Weightcutting Analysis" /><published>2019-03-14T15:43:49-07:00</published><updated>2019-03-14T15:43:49-07:00</updated><id>http://localhost:4000/jekyll/update/2019/03/14/welcome-to-jekyll</id><content type="html" xml:base="http://localhost:4000/jekyll/update/2019/03/14/welcome-to-jekyll.html">&lt;p&gt;&lt;a href=&quot;https://github.com/mitch354/MMAWeightCutProject&quot;&gt;Weight Cut Project&lt;/a&gt;&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;Analysis and Interpretations on weight cutting in MMA&lt;/li&gt;
+  &lt;li&gt;Includes all steps of the Data Science pipeline, from ETL to Data Visualization&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Tools:&lt;/strong&gt; &lt;img src=&quot;/assets/img/python.png&quot; width=&quot;40&quot; title=&quot;Python&quot; /&gt; &lt;img src=&quot;/assets/img/scikit-learn.png&quot; width=&quot;60&quot; title=&quot;scikit-learn&quot; /&gt;&lt;/li&gt;
+&lt;/ul&gt;</content><author><name></name></author><summary type="html">Weight Cut Project Analysis and Interpretations on weight cutting in MMA Includes all steps of the Data Science pipeline, from ETL to Data Visualization Tools:</summary></entry></feed>

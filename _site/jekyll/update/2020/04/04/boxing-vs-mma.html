@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.5.0 -->
+<title>Boxing vs MMA - Part 1 | Mitchell Hole</title>
+<meta name="generator" content="Jekyll v3.8.5" />
+<meta property="og:title" content="Boxing vs MMA - Part 1" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Goal" />
+<meta property="og:description" content="Goal" />
+<link rel="canonical" href="http://localhost:4000/jekyll/update/2020/04/04/boxing-vs-mma.html" />
+<meta property="og:url" content="http://localhost:4000/jekyll/update/2020/04/04/boxing-vs-mma.html" />
+<meta property="og:site_name" content="Mitchell Hole" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2020-04-04T15:43:49-07:00" />
+<script type="application/ld+json">
+{"description":"Goal","@type":"BlogPosting","url":"http://localhost:4000/jekyll/update/2020/04/04/boxing-vs-mma.html","headline":"Boxing vs MMA - Part 1","dateModified":"2020-04-04T15:43:49-07:00","datePublished":"2020-04-04T15:43:49-07:00","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/jekyll/update/2020/04/04/boxing-vs-mma.html"},"@context":"http://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Mitchell Hole" /></head>
+<body><header class="site-header" role="banner">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Mitchell Hole</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/about/">About</a><a class="page-link" href="/Projects/">Projects</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">Boxing vs MMA - Part 1</h1>
+    <p class="post-meta">
+      <time class="dt-published" datetime="2020-04-04T15:43:49-07:00" itemprop="datePublished">Apr 4, 2020
+      </time></p>
+  </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <h3 id="goal">Goal</h3>
+
+<p>Compare and contrast top ranked boxers against top ranked MMA fighters. This part will focus on Stance, Age and Record. The next part will dive deeper into strength of competition.</p>
+
+<h3 id="data-collection">Data Collection</h3>
+
+<p>Used Selenium with Headless Chrome to scrape boxer stats from https://boxrec.com/en/ratings and used MMA data I had already gathered. Put into two Pandas dataframes with features:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>column_names = ['Weightclass', 'Name', 'Age', 'Stance', 'Wins', 'Losses', 'Draws', 'Link']
+boxersDF = pd.DataFrame(columns = column_names)
+mmaDF = pd.DataFrame(columns = column_names)
+</code></pre></div></div>
+<p><code class="highlighter-rouge">"Weightclass"</code> - <em>String</em> - What weight the fighter was competes at</p>
+
+<p><code class="highlighter-rouge">"Name"</code> - <em>String</em> - Name of the fighter</p>
+
+<p><code class="highlighter-rouge">"Age"</code> - <em>Int</em> - Age of the fighter in years</p>
+
+<p><code class="highlighter-rouge">"Stance"</code> - <em>[‘southpaw’, ‘orthodox’]</em> - Which foot/hand the fighter leads with</p>
+
+<p><code class="highlighter-rouge">"Wins"</code> - <em>Int</em> - Number of wins the fighter has accumulated</p>
+
+<p><code class="highlighter-rouge">"Losses"</code> - <em>Int</em> - Number of losses the fighter has accumulated</p>
+
+<p><code class="highlighter-rouge">"Draws"</code> - <em>Int</em> - Number of draws the fighter has accumulated</p>
+
+<p><code class="highlighter-rouge">"Link"</code> - <em>String</em> - For future processing. Links to the fighters Tapology / Box Rec page where their strength of competition may be analized</p>
+
+<h3 id="results">Results</h3>
+
+<p><strong><em>Comparison of Stances between MMA &amp; Boxing</em></strong></p>
+
+<p><img src="/assets/img/2020-04-04/bar.png" title="bar" /></p>
+
+<p>Boxing seems to have a bit more a proclivity towards southpaw fighters but, at 31% probability of the same means, there’s not strong enough evidence to confirm. Let’s take a closer look by breaking down the distribution by weight class:</p>
+
+<p><img src="/assets/img/2020-04-04/mmavboxing.png" title="mmavboxing" /></p>
+
+<p>MMA has an outlier in the welterweight division where 9/16 of the fighters in the sample are southpaws. If we take this division out as well as the boxing division with the most southpaws (featherweight) we get:</p>
+
+<p><img src="/assets/img/2020-04-04/bar2.png" title="bar2" /></p>
+
+<p>With the outliers removed there’s a 7.3% chance these datasets have the mean. Still a larger sample size should be taken for an affirmative answer. It would also be interesting to explore if the welterweight division remains an outlier or if this was just a chance sampling.</p>
+
+<p><strong><em>Comparison of age between MMA &amp; Boxing</em></strong></p>
+
+<pre><code class="language-Python">print("MMA Normality Test: " + str(stats.normaltest(mmaDF['Age']).pvalue))
+print("Boxing Normality Test: " + str(stats.normaltest(boxersDF['Age']).pvalue))
+print("Probability of equal variance: " + str(stats.levene(mmaDF['Age'], boxersDF['Age']).pvalue))
+
+MMA Normality Test: 0.03781844203980707
+Boxing Normality Test: 0.48667341957628285
+Probability of equal variance: 0.9556934435227888
+</code></pre>
+
+<p>The normal test, as it often does, failed for MMA fighters but inspecting the curves reveals that both data sets have somewhat normal shapes.
+<img src="/assets/img/2020-04-04/age_hist.png" title="age_hist" /></p>
+
+<pre><code class="language-Python">print("MMA mean: " + str(mmaDF['Age'].mean()))
+print("Boxing mean: " + str(boxersDF['Age'].mean()))
+print("Probability of equal means: " + str(stats.ttest_ind(mmaDF['Age'], boxersDF['Age']).pvalue))
+
+MMA mean: 31.80314960629921
+Boxing mean: 29.909774436090224
+Probability of equal means: 4.56981195468321e-05
+</code></pre>
+
+<p>Top boxers are around two years younger than their MMA counterparts. This aligns with my intuition. Young boxers such as Ryan Garcia (21), Davin Haney (21), and Vergil Ortiz Jr. (22) are already prime to contend in their divisions. It is very rare to see a fighter this age in the UFC, let alone ranked. Most at this age probably only have a handful of fights.</p>
+
+<p><strong><em>Comparison of fight numbers between MMA &amp; Boxing</em></strong></p>
+
+<p><em>Total Fights</em></p>
+
+<p>The data is a little less normal here but the distributions are similarly shaped and it’s clear that the average boxer has more fights than the average MMA fighter. This is more revealing when you consider the age discrepancy described above. I’d need additional data to shed more light on it but I expect boxers are starting earlier and packing in a ton of fights in their early careers. Once guys hit the elite level, i.e the ones chosen for this survey, 2 fights a year is the standard convention.</p>
+
+<p><img src="/assets/img/2020-04-04/hist2.png" title="hist2" /></p>
+
+<p><em>Win Ratio</em></p>
+
+<p><img src="/assets/img/2020-04-04/hist3.png" title="hist3" /></p>
+
+<p>These distributions could not be more distinct and seem to echo the common sentiment that the best don’t fight the best in boxing. A more in depth breakdown of this will be presented in the next article.</p>
+
+  </div><a class="u-url" href="/jekyll/update/2020/04/04/boxing-vs-mma.html" hidden></a>
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">Mitchell Hole</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">Mitchell Hole</li><li><a class="u-email" href="mailto:mhole@sfu.ca">mhole@sfu.ca</a></li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/mitch354"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">mitch354</span></a></li><li><a href="https://www.linkedin.com/in/mitchell-hole-3646a9162"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#linkedin"></use></svg> <span class="username">mitchell-hole-3646a9162</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>Projects &amp; Experience</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

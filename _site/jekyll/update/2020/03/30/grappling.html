@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.5.0 -->
+<title>Grappling Analysis - Best Fights and Promotions | Mitchell Hole</title>
+<meta name="generator" content="Jekyll v3.8.5" />
+<meta property="og:title" content="Grappling Analysis - Best Fights and Promotions" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Goal" />
+<meta property="og:description" content="Goal" />
+<link rel="canonical" href="http://localhost:4000/jekyll/update/2020/03/30/grappling.html" />
+<meta property="og:url" content="http://localhost:4000/jekyll/update/2020/03/30/grappling.html" />
+<meta property="og:site_name" content="Mitchell Hole" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2020-03-30T15:43:49-07:00" />
+<script type="application/ld+json">
+{"description":"Goal","@type":"BlogPosting","url":"http://localhost:4000/jekyll/update/2020/03/30/grappling.html","headline":"Grappling Analysis - Best Fights and Promotions","dateModified":"2020-03-30T15:43:49-07:00","datePublished":"2020-03-30T15:43:49-07:00","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/jekyll/update/2020/03/30/grappling.html"},"@context":"http://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Mitchell Hole" /></head>
+<body><header class="site-header" role="banner">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Mitchell Hole</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/about/">About</a><a class="page-link" href="/Projects/">Projects</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">Grappling Analysis - Best Fights and Promotions</h1>
+    <p class="post-meta">
+      <time class="dt-published" datetime="2020-03-30T15:43:49-07:00" itemprop="datePublished">Mar 30, 2020
+      </time></p>
+  </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <h3 id="goal">Goal</h3>
+
+<p>Systematically rank the MMA fights based on their grappling components. Activity and competitiveness are the main attributes desired here. There are many great grappling performances that were quick and one sided but here I’m looking for fights where both fighters had some level as success.</p>
+
+<h3 id="data-collection">Data Collection</h3>
+
+<p>Used Selenium with Headless Chrome to scrape fight stats from <a href="http://www.ufcstats.com/statistics/events/completed">ufcstats.com</a>. Put into a Pandas dataframe with features:</p>
+
+<pre><code class="language-Python">column_names = ["Weightclass", "Submission", "Rounds", "Date", "A_name", "A_takedowns", "A_takedown_attempts", "A_ground_strikes", "A_ground_strike_ratio", "A_sub_attempts", "A_passes", "A_reversals", "B_name", "B_takedowns", "B_takedown_attempts", "B_ground_strikes", "B_ground_strike_ratio", "B_sub_attempts", "B_passes", "B_reversals"]
+</code></pre>
+
+<p><code class="highlighter-rouge">"Weightclass"</code> - <em>String</em> - What weight the fight was held at</p>
+
+<p><code class="highlighter-rouge">"Submission"</code> - <em>Boolean</em> - Whether or not the fight ended with a Submission</p>
+
+<p><code class="highlighter-rouge">"Rounds"</code> - <em>int</em> - How many rounds the bout lasted</p>
+
+<p><code class="highlighter-rouge">"Date"</code> - <em>datetime</em> - When the bout took place</p>
+
+<p><code class="highlighter-rouge">"A_name"</code> - <em>String</em> - the name of Fighter A</p>
+
+<p><code class="highlighter-rouge">"A_takedowns"</code> - <em>Int</em> - The number of takedowns completed by fighter A</p>
+
+<p><code class="highlighter-rouge">"A_takedowns_attempts"</code> - <em>Int</em> - The number of takedowns attempted by fighter A (complete + incomplete)</p>
+
+<p><code class="highlighter-rouge">"A_ground_strikes"</code> - <em>Int</em> - Number of strikes landed by fighter A while on the ground</p>
+
+<p><code class="highlighter-rouge">"A_ground_strike_ratio"</code> - <em>Float</em> - A_ground_strikes / total number of strikes</p>
+
+<p><code class="highlighter-rouge">"A_sub_attempts"</code> - <em>Int</em> - The number of Submission attempts attempted by fighter B</p>
+
+<p><code class="highlighter-rouge">"A_passes"</code> - <em>Int</em> - The number of times fighter A passed fighter B’s guard</p>
+
+<p><code class="highlighter-rouge">A_reversals</code> - <em>Int</em> - The number of times fighter A swept or reversed fighter</p>
+
+<p>The columns for fighter B follow the above definitions</p>
+
+<p>Fights with this form were gathered separately for the UFC, WEC, Strikeforce and Pride organizations and merged together when needed for analysis.</p>
+
+<h3 id="data-cleaning--engineering">Data Cleaning &amp; Engineering</h3>
+
+<h1 id="calculating-grapple-score">Calculating Grapple Score</h1>
+
+<pre><code class="language-Python">def getGrappleScore(fight):
+    A_score = 1
+    A_score += 0.75 * fight.A_takedowns
+    A_score +=  (1/4) * fight.A_takedown_attempts
+    A_score += 1.75 * fight.A_passes
+    A_score += 3 * fight.A_reversals
+    A_score += 2.5 * fight.A_sub_attempts
+    A_score += (0.2 * fight.A_ground_strike_ratio) * fight.A_ground_strikes
+    B_score = 1
+    ### ...
+    ### Same as above
+    ### ...
+    B_score += (0.2 * fight.B_ground_strike_ratio) * fight.B_ground_strikes
+    Fight_Score = fight.Submission * 4 + (A_score + B_score) * (1 - ((max(A_score,B_score) - min(A_score,B_score))**1.5/max(A_score,B_score)**1.5)) * (1 - fight.Rounds * .05)
+    return Fight_Score
+
+ufc_df['Score'] = ufc_df.apply(lambda X: getGrappleScore(X), axis=1)
+wec_df['Score'] = wec_df.apply(lambda X: getGrappleScore(X), axis=1)
+strikeforce_df['Score'] = strikeforce_df.apply(lambda X: getGrappleScore(X), axis=1)
+pride_df['Score'] = pride_df.apply(lambda X: getGrappleScore(X), axis=1)
+</code></pre>
+
+<hr />
+<p><br /></p>
+<pre><code class="language-Python">A_score = 1
+A_score += 0.75 * fight.A_takedowns
+A_score +=  (1/4) * fight.A_takedown_attempts
+A_score += 1.75 * fight.A_passes
+A_score += 3 * fight.A_reversals
+A_score += 2.5 * fight.A_sub_attempts
+
+</code></pre>
+
+<p>A_score/B_score are started at 1 to avoid a potential division by 0 error. Otherwise the individual scores are just a linear combination of the fighter’s grappling stats with different weights. Reversals are highly rewarded because they indicate an exchange in which both fighters had some level of success. Submission attempts, passes, takedowns and takedown attempts were likewise scaled by how much I believed they contributed to an active grappling match.</p>
+
+<pre><code class="language-Python">A_score += (0.2 * fight.A_ground_strike_ratio) * fight.A_ground_strikes
+</code></pre>
+
+<p>Ground strikes, being the easiest stat to accumulate, were a bit more difficult to factor in and were scaled down to no dominate the score. In lieu of being able to find stats regarding total time on the ground I also used ground_strike_ratio in this term as an approximation of top control time (the fighter on top usually lands significant strikes at a much higher rate). If a fighter has a high ground strike ratio it’s likely they spent a significant portion of the fight on top of their opponent instead of on the bottom or just standup.</p>
+
+<pre><code class="language-Python">Fight_Score = fight.Submission * 4 + (A_score + B_score) * (1 - ((max(A_score,B_score) - min(A_score,B_score))**1.5/max(A_score,B_score)**1.5)) * (1 - fight.Rounds * .05)
+</code></pre>
+
+<p><code class="highlighter-rouge">fight.Submission * 4</code> - Rewarding a fight for ending in a Submission</p>
+
+<p><code class="highlighter-rouge">(A_score + B_score)</code> - Sum of both fighters scores</p>
+
+<p><code class="highlighter-rouge">((max(A_score,B_score) - min(A_score,B_score))**1.5/max(A_score,B_score)**1.5)</code> - Returns a number in [0.0, 1.0], the closer to 1 the closer the fight scores for each fighter were. I found the term on its own was too punishing and the term squared wasn’t enough so settled at raising the term to the power of 1.5.</p>
+
+<p><code class="highlighter-rouge">(1 - fight.Rounds * .05)</code> - Fights with more rounds will naturally have more stats accumulated so this term makes the fight score consider that.</p>
+
+<h3 id="results">Results</h3>
+
+<p><strong>Top 25 Grappling Fights:</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Fighter A</th>
+      <th>Fighter B</th>
+      <th>Score</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Louis Smolka</td>
+      <td>Tim Elliott</td>
+      <td>52.593</td>
+    </tr>
+    <tr>
+      <td>Nate Diaz</td>
+      <td>Alejandro Garcia</td>
+      <td>49.244</td>
+    </tr>
+    <tr>
+      <td>John Alessio</td>
+      <td>Alex Serdyukov</td>
+      <td>47.303</td>
+    </tr>
+    <tr>
+      <td>Russell Doane</td>
+      <td>Jerrod Sanders</td>
+      <td>46.976</td>
+    </tr>
+    <tr>
+      <td>Ed Herman</td>
+      <td>Kendall Grove</td>
+      <td>45.07</td>
+    </tr>
+    <tr>
+      <td>Magomed Magomedov</td>
+      <td>Petr Yan</td>
+      <td>44.818</td>
+    </tr>
+    <tr>
+      <td>Chris Wade</td>
+      <td>Islam Makhachev</td>
+      <td>44.595</td>
+    </tr>
+    <tr>
+      <td>Antonio Rodrigo Nogueira</td>
+      <td>Bob Sapp</td>
+      <td>44.47</td>
+    </tr>
+    <tr>
+      <td>Michinori Tanaka</td>
+      <td>Kyung Ho Kang</td>
+      <td>44.219</td>
+    </tr>
+    <tr>
+      <td>Matt Grice</td>
+      <td>Jason Black</td>
+      <td>40.897</td>
+    </tr>
+    <tr>
+      <td>Kevin Holland</td>
+      <td>Gerald Meerschaert</td>
+      <td>40.41</td>
+    </tr>
+    <tr>
+      <td>John Hathaway</td>
+      <td>Rick Story</td>
+      <td>40.199</td>
+    </tr>
+    <tr>
+      <td>Cub Swanson</td>
+      <td>Micah Miller</td>
+      <td>39.002</td>
+    </tr>
+    <tr>
+      <td>Carlos Condit</td>
+      <td>Jake Ellenberger</td>
+      <td>38.847</td>
+    </tr>
+    <tr>
+      <td>Heath Herring</td>
+      <td>Cheick Kongo</td>
+      <td>38.615</td>
+    </tr>
+    <tr>
+      <td>Chase Beebe</td>
+      <td>Rani Yahya</td>
+      <td>38.329</td>
+    </tr>
+    <tr>
+      <td>Dan Henderson</td>
+      <td>Yuki Kondo</td>
+      <td>38.309</td>
+    </tr>
+    <tr>
+      <td>Quinton Jackson</td>
+      <td>Murilo Rua</td>
+      <td>38.096</td>
+    </tr>
+    <tr>
+      <td>Demian Maia</td>
+      <td>Jason MacDonald</td>
+      <td>36.977</td>
+    </tr>
+    <tr>
+      <td>Paddy Holohan</td>
+      <td>Louis Smolka</td>
+      <td>36.839</td>
+    </tr>
+    <tr>
+      <td>Gerald Meerschaert</td>
+      <td>Oskar Piechota</td>
+      <td>36.689</td>
+    </tr>
+    <tr>
+      <td>Ricardo Lamas</td>
+      <td>Dave Jansen</td>
+      <td>36.466</td>
+    </tr>
+    <tr>
+      <td>Dan Henderson</td>
+      <td>Murilo Rua</td>
+      <td>36.355</td>
+    </tr>
+    <tr>
+      <td>Jared Hamman</td>
+      <td>Rodney Wallace</td>
+      <td>36.267</td>
+    </tr>
+    <tr>
+      <td>Ben Rothwell</td>
+      <td>Gilbert Yvel</td>
+      <td>36.13</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>Grappling Score by Promotion:</strong></p>
+
+<p><img src="/assets/img/2020-03-30/heatmap.png" title="heatmap" /></p>
+
+<p><img src="/assets/img/2020-03-30/histogram.png" title="histogram" /></p>
+
+<p>All promotions share a very similar, extremely right skewed distributions; close to a geometric. This is a product of many fights having no grappling components at all or if they do, then they’re extremely one sided. Pride &amp; WEC have noticeably higher means and this aligns with my ‘eyeball’ test.</p>
+
+<p>Pride’s events took place in the early to mid 2000’s when the grappling meta wasn’t close to where it is today. WEC mostly featured fights in the lighter weight classes, 155lbs and lower, where physical attributes naturally lead to more scrambles and exciting grappling exchanges.</p>
+
+  </div><a class="u-url" href="/jekyll/update/2020/03/30/grappling.html" hidden></a>
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">Mitchell Hole</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">Mitchell Hole</li><li><a class="u-email" href="mailto:mhole@sfu.ca">mhole@sfu.ca</a></li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/mitch354"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">mitch354</span></a></li><li><a href="https://www.linkedin.com/in/mitchell-hole-3646a9162"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#linkedin"></use></svg> <span class="username">mitchell-hole-3646a9162</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>Projects &amp; Experience</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>
