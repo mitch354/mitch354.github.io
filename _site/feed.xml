@@ -1,4 +1,303 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2020-04-12T05:57:36-07:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Mitchell Hole</title><subtitle>Projects &amp; Experience</subtitle><entry><title type="html">Boxing vs MMA - Part 2</title><link href="http://localhost:4000/jekyll/update/2020/04/07/boxing-vs-mma-part2.html" rel="alternate" type="text/html" title="Boxing vs MMA - Part 2" /><published>2020-04-07T07:43:49-07:00</published><updated>2020-04-07T07:43:49-07:00</updated><id>http://localhost:4000/jekyll/update/2020/04/07/boxing-vs-mma-part2</id><content type="html" xml:base="http://localhost:4000/jekyll/update/2020/04/07/boxing-vs-mma-part2.html">&lt;h3 id=&quot;goal&quot;&gt;Goal&lt;/h3&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2020-05-07T07:57:19-07:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Mitchell Hole</title><subtitle>Projects &amp; Experience</subtitle><entry><title type="html">Applying Machine Learning Techniques on Wine Rankings</title><link href="http://localhost:4000/jekyll/update/2020/04/29/wine-quality.html" rel="alternate" type="text/html" title="Applying Machine Learning Techniques on Wine Rankings" /><published>2020-04-29T07:43:49-07:00</published><updated>2020-04-29T07:43:49-07:00</updated><id>http://localhost:4000/jekyll/update/2020/04/29/wine-quality</id><content type="html" xml:base="http://localhost:4000/jekyll/update/2020/04/29/wine-quality.html">&lt;h3 id=&quot;goal&quot;&gt;Goal&lt;/h3&gt;
+
+&lt;p&gt;Look for a relationship between chemical properties of wine and their quality rating from experts. Will explore several different models (linear regression, logistic regression &amp;amp; Neural Networks) to try to find an accurate predictor.&lt;/p&gt;
+
+&lt;h3 id=&quot;data-collection&quot;&gt;Data Collection&lt;/h3&gt;
+
+&lt;p&gt;Data imported from:&lt;/p&gt;
+
+&lt;p&gt;P. Cortez, A. Cerdeira, F. Almeida, T. Matos and J. Reis.
+Modeling wine preferences by data mining from physicochemical properties. In Decision Support Systems, Elsevier, 47(4):547-553, 2009.&lt;/p&gt;
+
+&lt;p&gt;Obtained a CSV file of 1600 samples of wine. Features are:&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;&quot;fixed acidity&quot;&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;&quot;volatile acidity&quot;&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;&quot;citric acid&quot;&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;&quot;residual sugar&quot;&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;&quot;chlorides&quot;&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;&quot;free sulfur dioxide&quot;&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;&quot;total sulfur dioxide&quot;&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;&quot;density&quot;&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;&quot;pH&quot;&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;&quot;sulphates&quot;&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;&quot;alcohol&quot;&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;&quot;quality&quot;&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;quality, a whole number between 1 &amp;amp; 10, is the output variable and what I will be trying to predict as an function of the other feautures.&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;redWines&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;pd&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;read_csv&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'winequality-red.csv'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;delimiter&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;y&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;redWines&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'quality'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;X&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;np&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;stack&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;redWines&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;drop&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;columns&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'quality'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;values&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;data-engineering&quot;&gt;Data Engineering&lt;/h3&gt;
+
+&lt;p&gt;Since several features were on different scales I applied mean normalization:&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;X=(X-X.mean())/X.std()&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;Some features also show a great deal of correlation:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/imgs/2020-04-30/heatmap.png&quot; title=&quot;heatmap&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;After confirming they had no impact on model accuracy, citric acid and and fixed acidity were dropped. PH sufficiently gave the same information.&lt;/p&gt;
+
+&lt;p&gt;I considered applying PCA but it lead to a significant loss of information:&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;Components = 2&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/imgs/2020-04-30/2pca.png&quot; title=&quot;2pca&quot; /&gt;&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;pca&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;explained_variance_ratio_&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;array&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;([&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;0.23738404&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;0.18819661&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;em&gt;Components = 3&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/imgs/2020-04-30/3pca.png&quot; title=&quot;3pca&quot; /&gt;&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;pca&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;explained_variance_ratio_&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;array&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;([&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;0.23738404&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;0.18819661&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;0.15882354&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;results&quot;&gt;Results&lt;/h3&gt;
+
+&lt;p&gt;&lt;strong&gt;Linear Regression&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Training/Test split:&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;X_train, X_valid, y_train, y_valid = train_test_split(X, y, test_size=0.2)&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;Model:&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;model&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;make_pipeline&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;LinearRegression&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;model&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;fit&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;X_train&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y_train&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;values&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Score:&lt;/p&gt;
+
+&lt;p&gt;Runnning with 100 different test/train splits average scores were:&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;&lt;em&gt;Red Wine Training Score: 0.361&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;&lt;em&gt;Red Wine Validation Score: 0.348&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;The scores here are the R2 coefficient and essentially shows how correlated ((y_true - y_pred) ** 2).sum() and the residual sum of squares ((y_true - y_true.mean()) ** 2).sum() are. ~0.27 - 0.35 are pretty weak correlations. The training score and validation score are very close though so at least the model is generalizing well and not biased.&lt;/p&gt;
+
+&lt;p&gt;I also calculated the mean-squared error to get a better sense of how far away my predictions were:&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;y_predicted&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;model&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;predict&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;X_train&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;regression_model_mse&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;mean_squared_error&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;y_predicted&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y_train&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;values&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;regression_model_mse&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;math&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sqrt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;regression_model_mse&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;This gave an average error in quality rating around:&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;&lt;em&gt;Red Wine MSE: 0.65&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;The data proved to be not very polynomial as adding these features quickly led to poor validation scores:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-Python&quot;&gt;model = make_pipeline(
+    PolynomialFeatures(degree=2),
+    LinearRegression()
+)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Adding logarithmic transformation also had no impact on scoring.&lt;/p&gt;
+
+&lt;p&gt;The main issue is the output variable, quality. It is essentially on a discrete scale since quality ratings are given as a whole number in range 1 - 10 (only 3 - 8 are actually assigned in the dataset).&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/imgs/2020-04-30/scatter.png&quot; title=&quot;scatter&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;With this in mind linear regression may have not been the right tool for this job.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Logistic Regression&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;With the all the quality ratings belonging to [3,4,5,6,7,8] classification seems like an appropriate choice for this dataset.&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Quality&lt;/th&gt;
+      &lt;th&gt;Frequency&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;5&lt;/td&gt;
+      &lt;td&gt;0.425891&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;6&lt;/td&gt;
+      &lt;td&gt;0.398999&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;7&lt;/td&gt;
+      &lt;td&gt;0.124453&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;4&lt;/td&gt;
+      &lt;td&gt;0.033146&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;8&lt;/td&gt;
+      &lt;td&gt;0.011257&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;3&lt;/td&gt;
+      &lt;td&gt;0.006254&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;Like with linear regression the data was underfitting the test set&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-Python&quot;&gt;model = make_pipeline(
+    LogisticRegression(max_iter=250)
+)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;&lt;em&gt;Red Wine Training Score: 0.567&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;&lt;em&gt;Red Wine Validation Score: 0.562&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;(The score here is the ratio of correctly predicted classes)&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-Python&quot;&gt;model = make_pipeline(
+    LogisticRegression(C=1e4, max_iter=250)
+)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;To tackle this I raised the regularization parameter and that lead to, marginally, better performance:&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;&lt;em&gt;Red Wine Training Score: 0.596&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;&lt;em&gt;Red Wine Validation Score: 0.592&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h3&gt;
+
+&lt;p&gt;Using Linear and Logistic regression lead to some significantly better than chance results but not quite what I was hoping for. While not written about here, other learning algorithms like Support Vector Classes and Neural Networks gave almost identical scores as Logistic Regression. I believe the issue lies in the nature of the target variable (wine quality). A 5/10 wine vs a 6/10 wine are fairly similar labels when it comes to classification; it’s not apples vs oranges. I will perform some error analysis and report on anything I find in the next post as well as build a classifier to differentiate red vs white wine; a task I expect the ML algorithms to perform much better on.&lt;/p&gt;</content><author><name></name></author><summary type="html">Goal</summary></entry><entry><title type="html">IMDB vs Metacritic</title><link href="http://localhost:4000/jekyll/update/2020/04/22/imdb-vs-metacritic.html" rel="alternate" type="text/html" title="IMDB vs Metacritic" /><published>2020-04-22T07:43:49-07:00</published><updated>2020-04-22T07:43:49-07:00</updated><id>http://localhost:4000/jekyll/update/2020/04/22/imdb-vs-metacritic</id><content type="html" xml:base="http://localhost:4000/jekyll/update/2020/04/22/imdb-vs-metacritic.html">&lt;h3 id=&quot;goal&quot;&gt;Goal&lt;/h3&gt;
+
+&lt;p&gt;Compare and contrast film ratings from the Internet Movie Database (IMDB) against Metacritic. IMDB ratings are from users while Metacritic is an average of actual film critics.&lt;/p&gt;
+
+&lt;h3 id=&quot;data-collection&quot;&gt;Data Collection&lt;/h3&gt;
+
+&lt;p&gt;All necessary information (including Metacritic ratings) was available on IMDB. Chose close to 1700 entries from random lists such as &lt;a href=&quot;https://www.imdb.com/list/ls009796553/&quot;&gt;this&lt;/a&gt;. Scraped from there and put into a Pandas dataframe with columns:&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;&quot;Name&quot;&lt;/code&gt; - &lt;em&gt;String&lt;/em&gt; - Name of the film&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;&quot;Length&quot;&lt;/code&gt; - &lt;em&gt;Int&lt;/em&gt; - Length of the film in minutes&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;&quot;Year&quot;&lt;/code&gt; - &lt;em&gt;Int&lt;/em&gt; - The year the film was released&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;&quot;Genre&quot;&lt;/code&gt; - &lt;em&gt;String&lt;/em&gt; - The type of film - if many were listed the first one was chosen&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;&quot;MPAA&quot;&lt;/code&gt; - &lt;em&gt;String&lt;/em&gt; - Rating of the film (R, PG-13, etc.)&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;&quot;Budget&quot;&lt;/code&gt; - &lt;em&gt;Int&lt;/em&gt; - Cost of making the film&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;&quot;BoxOffice&quot;&lt;/code&gt; - &lt;em&gt;Int&lt;/em&gt; - How much the film made in theates&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;&quot;IMDB&quot;&lt;/code&gt; - &lt;em&gt;Int&lt;/em&gt; - Rating of the film on IMDB&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;&quot;numRatings&quot;&lt;/code&gt; - &lt;em&gt;Int&lt;/em&gt; - How many users contributed to the ratings&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;&quot;Metacritic&quot;&lt;/code&gt; - &lt;em&gt;Int&lt;/em&gt; - Rating of the film on Metacritic&lt;/p&gt;
+
+&lt;p&gt;Distributions for Year, Genre and MPAA looked as follows:&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;Year&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/imgs/2020-04-22/year_hist.png&quot; title=&quot;years&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;MPAA&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/imgs/2020-04-22/mpaa.png&quot; title=&quot;mpaa&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;Genre&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/imgs/2020-04-22/genre.png&quot; title=&quot;genre&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;At a quick glance the year and MPAA distributions looked correct to me but the genre seemed off. There were too many comedies and it was odd the the counts were going down in alphabetical order. When I looked at the source data on IMDB I realized that they were actually listing genres for a movie in alphabetical order, not by which was most applicable. With that in mind I decided to drop this column as the current values weren’t reliable and I lacked a timely way of properly categorizing them.&lt;/p&gt;
+
+&lt;h3 id=&quot;results&quot;&gt;Results&lt;/h3&gt;
+
+&lt;p&gt;&lt;strong&gt;Average Rating - overall&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/imgs/2020-04-22/rating_hist.png&quot; title=&quot;ratings&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Metacritic is indeed more critical. Also much greater variance:&lt;/p&gt;
+
+&lt;p&gt;IMDB Standard Deviation 0.947&lt;/p&gt;
+
+&lt;p&gt;Metacritic Standard Deviation 1.755&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Average Rating - By MPAA&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/imgs/2020-04-22/violin.png&quot; title=&quot;violin&quot; /&gt;&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;MPAA&lt;/th&gt;
+      &lt;th&gt;IMDB&lt;/th&gt;
+      &lt;th&gt;Metacritic&lt;/th&gt;
+      &lt;th&gt;Difference&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;G&lt;/td&gt;
+      &lt;td&gt;6.826&lt;/td&gt;
+      &lt;td&gt;6.502&lt;/td&gt;
+      &lt;td&gt;0.325&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;PG&lt;/td&gt;
+      &lt;td&gt;6.486&lt;/td&gt;
+      &lt;td&gt;5.519&lt;/td&gt;
+      &lt;td&gt;0.967&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;PG-13&lt;/td&gt;
+      &lt;td&gt;6.503&lt;/td&gt;
+      &lt;td&gt;5.273&lt;/td&gt;
+      &lt;td&gt;1.230&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;R&lt;/td&gt;
+      &lt;td&gt;6.820&lt;/td&gt;
+      &lt;td&gt;5.931&lt;/td&gt;
+      &lt;td&gt;0.888&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;While Metacritic gives out lower ratings across the board, G rated films are much closer than the others to ratings on IMDB. I believe this is likely due to a different set of standards all movie goers might have with these films. They are often meant to entertain children and as such reviewers will bring their families and evaluate the film on whether or not they’ve had a good time.&lt;/p&gt;
+
+&lt;p&gt;The greater variance found with Metacritic ratings are further illustrated here. The density curves are much less peaked and have longer tails in both extremes; not just low ratings.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Average Rating - By Decade&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/imgs/2020-04-22/violin2.png&quot; title=&quot;violin2&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Sorting ratings by decade didn’t reveal any new trends. In the next article I’ll look at budget and Box Office numbers and see if they have any impact of ratings.&lt;/p&gt;</content><author><name></name></author><summary type="html">Goal</summary></entry><entry><title type="html">Boxing vs MMA - Part 2</title><link href="http://localhost:4000/jekyll/update/2020/04/07/boxing-vs-mma-part2.html" rel="alternate" type="text/html" title="Boxing vs MMA - Part 2" /><published>2020-04-07T07:43:49-07:00</published><updated>2020-04-07T07:43:49-07:00</updated><id>http://localhost:4000/jekyll/update/2020/04/07/boxing-vs-mma-part2</id><content type="html" xml:base="http://localhost:4000/jekyll/update/2020/04/07/boxing-vs-mma-part2.html">&lt;h3 id=&quot;goal&quot;&gt;Goal&lt;/h3&gt;
 
 &lt;p&gt;Compare and contrast top ranked boxers against top ranked MMA fighters. This part will focus on strength of competition; analyzing the quality of opponents ranked boxers and MMA fighters have faced to date.&lt;/p&gt;
 

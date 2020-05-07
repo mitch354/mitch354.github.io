@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.5.0 -->
+<title>IMDB vs Metacritic | Mitchell Hole</title>
+<meta name="generator" content="Jekyll v3.8.5" />
+<meta property="og:title" content="IMDB vs Metacritic" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Goal" />
+<meta property="og:description" content="Goal" />
+<link rel="canonical" href="http://localhost:4000/jekyll/update/2020/04/22/imdb-vs-metacritic.html" />
+<meta property="og:url" content="http://localhost:4000/jekyll/update/2020/04/22/imdb-vs-metacritic.html" />
+<meta property="og:site_name" content="Mitchell Hole" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2020-04-22T07:43:49-07:00" />
+<script type="application/ld+json">
+{"description":"Goal","@type":"BlogPosting","url":"http://localhost:4000/jekyll/update/2020/04/22/imdb-vs-metacritic.html","headline":"IMDB vs Metacritic","dateModified":"2020-04-22T07:43:49-07:00","datePublished":"2020-04-22T07:43:49-07:00","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/jekyll/update/2020/04/22/imdb-vs-metacritic.html"},"@context":"http://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Mitchell Hole" /></head>
+<body><header class="site-header" role="banner">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Mitchell Hole</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/about/">About</a><a class="page-link" href="/education/">Education</a><a class="page-link" href="/Projects/">Projects</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">IMDB vs Metacritic</h1>
+    <p class="post-meta">
+      <time class="dt-published" datetime="2020-04-22T07:43:49-07:00" itemprop="datePublished">Apr 22, 2020
+      </time></p>
+  </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <h3 id="goal">Goal</h3>
+
+<p>Compare and contrast film ratings from the Internet Movie Database (IMDB) against Metacritic. IMDB ratings are from users while Metacritic is an average of actual film critics.</p>
+
+<h3 id="data-collection">Data Collection</h3>
+
+<p>All necessary information (including Metacritic ratings) was available on IMDB. Chose close to 1700 entries from random lists such as <a href="https://www.imdb.com/list/ls009796553/">this</a>. Scraped from there and put into a Pandas dataframe with columns:</p>
+
+<p><code class="highlighter-rouge">"Name"</code> - <em>String</em> - Name of the film</p>
+
+<p><code class="highlighter-rouge">"Length"</code> - <em>Int</em> - Length of the film in minutes</p>
+
+<p><code class="highlighter-rouge">"Year"</code> - <em>Int</em> - The year the film was released</p>
+
+<p><code class="highlighter-rouge">"Genre"</code> - <em>String</em> - The type of film - if many were listed the first one was chosen</p>
+
+<p><code class="highlighter-rouge">"MPAA"</code> - <em>String</em> - Rating of the film (R, PG-13, etc.)</p>
+
+<p><code class="highlighter-rouge">"Budget"</code> - <em>Int</em> - Cost of making the film</p>
+
+<p><code class="highlighter-rouge">"BoxOffice"</code> - <em>Int</em> - How much the film made in theates</p>
+
+<p><code class="highlighter-rouge">"IMDB"</code> - <em>Int</em> - Rating of the film on IMDB</p>
+
+<p><code class="highlighter-rouge">"numRatings"</code> - <em>Int</em> - How many users contributed to the ratings</p>
+
+<p><code class="highlighter-rouge">"Metacritic"</code> - <em>Int</em> - Rating of the film on Metacritic</p>
+
+<p>Distributions for Year, Genre and MPAA looked as follows:</p>
+
+<p><em>Year</em></p>
+
+<p><img src="/imgs/2020-04-22/year_hist.png" title="years" /></p>
+
+<p><em>MPAA</em></p>
+
+<p><img src="/imgs/2020-04-22/mpaa.png" title="mpaa" /></p>
+
+<p><em>Genre</em></p>
+
+<p><img src="/imgs/2020-04-22/genre.png" title="genre" /></p>
+
+<p>At a quick glance the year and MPAA distributions looked correct to me but the genre seemed off. There were too many comedies and it was odd the the counts were going down in alphabetical order. When I looked at the source data on IMDB I realized that they were actually listing genres for a movie in alphabetical order, not by which was most applicable. With that in mind I decided to drop this column as the current values weren’t reliable and I lacked a timely way of properly categorizing them.</p>
+
+<h3 id="results">Results</h3>
+
+<p><strong>Average Rating - overall</strong></p>
+
+<p><img src="/imgs/2020-04-22/rating_hist.png" title="ratings" /></p>
+
+<p>Metacritic is indeed more critical. Also much greater variance:</p>
+
+<p>IMDB Standard Deviation 0.947</p>
+
+<p>Metacritic Standard Deviation 1.755</p>
+
+<p><strong>Average Rating - By MPAA</strong></p>
+
+<p><img src="/imgs/2020-04-22/violin.png" title="violin" /></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>MPAA</th>
+      <th>IMDB</th>
+      <th>Metacritic</th>
+      <th>Difference</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>G</td>
+      <td>6.826</td>
+      <td>6.502</td>
+      <td>0.325</td>
+    </tr>
+    <tr>
+      <td>PG</td>
+      <td>6.486</td>
+      <td>5.519</td>
+      <td>0.967</td>
+    </tr>
+    <tr>
+      <td>PG-13</td>
+      <td>6.503</td>
+      <td>5.273</td>
+      <td>1.230</td>
+    </tr>
+    <tr>
+      <td>R</td>
+      <td>6.820</td>
+      <td>5.931</td>
+      <td>0.888</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>While Metacritic gives out lower ratings across the board, G rated films are much closer than the others to ratings on IMDB. I believe this is likely due to a different set of standards all movie goers might have with these films. They are often meant to entertain children and as such reviewers will bring their families and evaluate the film on whether or not they’ve had a good time.</p>
+
+<p>The greater variance found with Metacritic ratings are further illustrated here. The density curves are much less peaked and have longer tails in both extremes; not just low ratings.</p>
+
+<p><strong>Average Rating - By Decade</strong></p>
+
+<p><img src="/imgs/2020-04-22/violin2.png" title="violin2" /></p>
+
+<p>Sorting ratings by decade didn’t reveal any new trends. In the next article I’ll look at budget and Box Office numbers and see if they have any impact of ratings.</p>
+
+  </div><a class="u-url" href="/jekyll/update/2020/04/22/imdb-vs-metacritic.html" hidden></a>
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">Mitchell Hole</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">Mitchell Hole</li><li><a class="u-email" href="mailto:mhole@sfu.ca">mhole@sfu.ca</a></li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/mitch354"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">mitch354</span></a></li><li><a href="https://www.linkedin.com/in/mitchell-hole-3646a9162"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#linkedin"></use></svg> <span class="username">mitchell-hole-3646a9162</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>Projects &amp; Experience</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>
