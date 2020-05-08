@@ -182,6 +182,21 @@ To tackle this I raised the regularization parameter and that lead to, marginall
 
 ***Red Wine Validation Score: 0.592***
 
+This is certainly better than chance and predictions are usually off by just a single rating:
+
+```python
+confusion_matrix2 = confusion_matrix(y_train.values, y_predicted,labels=[3,4,5,6,7,8])
+print(confusion_matrix2)
+    3    4   5   6   7   8
+3[[  0   0   7   0   0   0]
+ 4[  0   0  29  16   2   0]
+ 5[  0   0 408 122   2   0]
+ 6[  0   0 171 328  16   0]
+ 7[  0   0   9 126  26   0]
+ 8[  0   0   0   9   8   0]]
+
+```
+
 ### Conclusion
 
 Using Linear and Logistic regression lead to some significantly better than chance results but not quite what I was hoping for. While not written about here, other learning algorithms like Support Vector Classes and Neural Networks gave almost identical scores as Logistic Regression. I believe the issue lies in the nature of the target variable (wine quality). A 5/10 wine vs a 6/10 wine are fairly similar labels when it comes to classification; it's not apples vs oranges. I will perform some error analysis and report on anything I find in the next post as well as build a classifier to differentiate red vs white wine; a task I expect the ML algorithms to perform much better on.

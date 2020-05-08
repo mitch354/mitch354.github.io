@@ -237,6 +237,20 @@ Modeling wine preferences by data mining from physicochemical properties. In Dec
 
 <p><strong><em>Red Wine Validation Score: 0.592</em></strong></p>
 
+<p>This is certainly better than chance and predictions are usually off by just a single rating:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">confusion_matrix2</span> <span class="o">=</span> <span class="n">confusion_matrix</span><span class="p">(</span><span class="n">y_train</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="n">y_predicted</span><span class="p">,</span><span class="n">labels</span><span class="o">=</span><span class="p">[</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">7</span><span class="p">,</span><span class="mi">8</span><span class="p">])</span>
+<span class="k">print</span><span class="p">(</span><span class="n">confusion_matrix2</span><span class="p">)</span>
+    <span class="mi">3</span>    <span class="mi">4</span>   <span class="mi">5</span>   <span class="mi">6</span>   <span class="mi">7</span>   <span class="mi">8</span>
+<span class="mi">3</span><span class="p">[[</span>  <span class="mi">0</span>   <span class="mi">0</span>   <span class="mi">7</span>   <span class="mi">0</span>   <span class="mi">0</span>   <span class="mi">0</span><span class="p">]</span>
+ <span class="mi">4</span><span class="p">[</span>  <span class="mi">0</span>   <span class="mi">0</span>  <span class="mi">29</span>  <span class="mi">16</span>   <span class="mi">2</span>   <span class="mi">0</span><span class="p">]</span>
+ <span class="mi">5</span><span class="p">[</span>  <span class="mi">0</span>   <span class="mi">0</span> <span class="mi">408</span> <span class="mi">122</span>   <span class="mi">2</span>   <span class="mi">0</span><span class="p">]</span>
+ <span class="mi">6</span><span class="p">[</span>  <span class="mi">0</span>   <span class="mi">0</span> <span class="mi">171</span> <span class="mi">328</span>  <span class="mi">16</span>   <span class="mi">0</span><span class="p">]</span>
+ <span class="mi">7</span><span class="p">[</span>  <span class="mi">0</span>   <span class="mi">0</span>   <span class="mi">9</span> <span class="mi">126</span>  <span class="mi">26</span>   <span class="mi">0</span><span class="p">]</span>
+ <span class="mi">8</span><span class="p">[</span>  <span class="mi">0</span>   <span class="mi">0</span>   <span class="mi">0</span>   <span class="mi">9</span>   <span class="mi">8</span>   <span class="mi">0</span><span class="p">]]</span>
+
+</code></pre></div></div>
+
 <h3 id="conclusion">Conclusion</h3>
 
 <p>Using Linear and Logistic regression lead to some significantly better than chance results but not quite what I was hoping for. While not written about here, other learning algorithms like Support Vector Classes and Neural Networks gave almost identical scores as Logistic Regression. I believe the issue lies in the nature of the target variable (wine quality). A 5/10 wine vs a 6/10 wine are fairly similar labels when it comes to classification; it’s not apples vs oranges. I will perform some error analysis and report on anything I find in the next post as well as build a classifier to differentiate red vs white wine; a task I expect the ML algorithms to perform much better on.</p>
