@@ -80,9 +80,7 @@ Modeling wine preferences by data mining from physicochemical properties. In Dec
 
 <p><code class="highlighter-rouge">"alcohol"</code></p>
 
-<p><code class="highlighter-rouge">"quality"</code></p>
-
-<p>quality, a whole number between 1 &amp; 10, is the output variable and what I will be trying to predict as an function of the other feautures.</p>
+<p><code class="highlighter-rouge">"quality"</code> - a whole number between 1 &amp; 10, is the output variable and what I will be trying to predict as an function of the other feautures.</p>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">redWines</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s">'winequality-red.csv'</span><span class="p">,</span> <span class="n">delimiter</span><span class="o">=</span><span class="s">";"</span><span class="p">)</span>
 <span class="n">y</span> <span class="o">=</span> <span class="n">redWines</span><span class="p">[</span><span class="s">'quality'</span><span class="p">]</span>

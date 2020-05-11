@@ -40,9 +40,7 @@ Obtained a CSV file of 1600 samples of wine. Features are:
 
 `"alcohol"`
 
-`"quality"`
-
-quality, a whole number between 1 & 10, is the output variable and what I will be trying to predict as an function of the other feautures.
+`"quality"` - a whole number between 1 & 10, is the output variable and what I will be trying to predict as an function of the other feautures.
 
 ```python
 redWines = pd.read_csv('winequality-red.csv', delimiter=";")

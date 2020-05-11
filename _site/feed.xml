@@ -1,4 +1,89 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2020-05-08T07:11:01-07:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Mitchell Hole</title><subtitle>Projects &amp; Experience</subtitle><entry><title type="html">Applying Machine Learning Techniques on Wine Rankings</title><link href="http://localhost:4000/jekyll/update/2020/04/29/wine-quality.html" rel="alternate" type="text/html" title="Applying Machine Learning Techniques on Wine Rankings" /><published>2020-04-29T07:43:49-07:00</published><updated>2020-04-29T07:43:49-07:00</updated><id>http://localhost:4000/jekyll/update/2020/04/29/wine-quality</id><content type="html" xml:base="http://localhost:4000/jekyll/update/2020/04/29/wine-quality.html">&lt;h3 id=&quot;goal&quot;&gt;Goal&lt;/h3&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2020-05-11T06:38:19-07:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Mitchell Hole</title><subtitle>Projects &amp; Experience</subtitle><entry><title type="html">Classification of red vs white wines</title><link href="http://localhost:4000/jekyll/update/2020/05/08/red-vs-white.html" rel="alternate" type="text/html" title="Classification of red vs white wines" /><published>2020-05-08T07:43:49-07:00</published><updated>2020-05-08T07:43:49-07:00</updated><id>http://localhost:4000/jekyll/update/2020/05/08/red-vs-white</id><content type="html" xml:base="http://localhost:4000/jekyll/update/2020/05/08/red-vs-white.html">&lt;h3 id=&quot;goal&quot;&gt;Goal&lt;/h3&gt;
+
+&lt;p&gt;Build a classifier that differentiates between red and white whines based on chemical properties.&lt;/p&gt;
+
+&lt;h3 id=&quot;data-collection&quot;&gt;Data Collection&lt;/h3&gt;
+
+&lt;p&gt;Same as &lt;a href=&quot;/jekyll/update/2020/04/29/wine-quality.html&quot;&gt;previous post&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;data-engineering&quot;&gt;Data Engineering&lt;/h3&gt;
+
+&lt;p&gt;Combined the red wine and white wine csv files into a single data frame and added a target feature, color, to indicate what type of wine the example was:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-Python&quot;&gt;redWines = pd.read_csv('winequality-red.csv', delimiter=&quot;;&quot;)
+whiteWines = pd.read_csv('winequality-white.csv', delimiter=&quot;;&quot;)
+redWines = redWines.drop(columns=['quality'])
+whiteWines = whiteWines.drop(columns=['quality'])
+redWines['color'] = 1
+whiteWines['color'] = 0
+wines = redWines.append(whiteWines)
+wines = wines.reset_index(drop=True)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Stored the target variable separately and performed mean normalization:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-Python&quot;&gt;wineType = wines['color']
+wines = np.stack(wines.drop(columns=['color']).values)
+wines=(wines-wines.mean())/wines.std()
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;For data visualization purposes used Principle Component Analysis to reduce dimensionality to 2 components. The images won’t 100% indicate what the model was trained on and how it classifies though.&lt;/p&gt;
+
+&lt;h3 id=&quot;results&quot;&gt;Results&lt;/h3&gt;
+
+&lt;p&gt;&lt;em&gt;Logistic Regression&lt;/em&gt;&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;X_train&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;X_valid&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y_train&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y_valid&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;train_test_split&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;wines&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;wineType&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;test_size&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;0.2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;model&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;make_pipeline&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;LogisticRegression&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;C&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;1e3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;max_iter&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;250&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;model&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;fit&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;X_train&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y_train&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;model&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;score&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;X_train&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y_train&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;model&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;score&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;X_valid&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y_valid&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;&lt;strong&gt;&lt;em&gt;0.985&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;&lt;em&gt;0.98&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/imgs/2020-05-08/2pca-LR.png&quot; title=&quot;2pca-LR&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;Support Vector Classes&lt;/em&gt;&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;X_train&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;X_valid&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y_train&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y_valid&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;train_test_split&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;wines&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;wineType&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;test_size&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;0.25&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;model&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;make_pipeline&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;SVC&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;C&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;10000&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;model&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;fit&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;X_train&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y_train&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;model&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;score&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;X_train&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y_train&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;model&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;score&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;X_valid&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y_valid&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;&lt;em&gt;0.991&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;&lt;em&gt;0.988&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/imgs/2020-05-08/2pca-svc.png&quot; title=&quot;2pca-svc&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;K Nearest Neighbours&lt;/em&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-Python&quot;&gt;X_train, X_valid, y_train, y_valid = train_test_split(wines, wineType, test_size=0.25)
+model = make_pipeline(
+    KNeighborsClassifier(n_neighbors=3)
+)
+model.fit(X_train, y_train)
+print(model.score(X_train, y_train))
+print(model.score(X_valid, y_valid))
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;&lt;em&gt;0.968&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;&lt;em&gt;0.942&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/imgs/2020-05-08/2pca-KNN.png&quot; title=&quot;2pca-KNN&quot; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h3&gt;
+
+&lt;p&gt;Both SVC and Logistic regression required a very high regularization parameter to get the scores they did. With C=1 both were around the low to mid 90’s. So there’s some question on whether they’re overfitting and if they’d generalize well to new data points.&lt;/p&gt;</content><author><name></name></author><summary type="html">Goal</summary></entry><entry><title type="html">Applying Machine Learning Techniques on Wine Rankings</title><link href="http://localhost:4000/jekyll/update/2020/04/29/wine-quality.html" rel="alternate" type="text/html" title="Applying Machine Learning Techniques on Wine Rankings" /><published>2020-04-29T07:43:49-07:00</published><updated>2020-04-29T07:43:49-07:00</updated><id>http://localhost:4000/jekyll/update/2020/04/29/wine-quality</id><content type="html" xml:base="http://localhost:4000/jekyll/update/2020/04/29/wine-quality.html">&lt;h3 id=&quot;goal&quot;&gt;Goal&lt;/h3&gt;
 
 &lt;p&gt;Look for a relationship between chemical properties of wine and their quality rating from experts. Will explore several different models (linear regression, logistic regression &amp;amp; Neural Networks) to try to find an accurate predictor.&lt;/p&gt;
 
@@ -33,9 +118,7 @@ Modeling wine preferences by data mining from physicochemical properties. In Dec
 
 &lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;&quot;alcohol&quot;&lt;/code&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;&quot;quality&quot;&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;quality, a whole number between 1 &amp;amp; 10, is the output variable and what I will be trying to predict as an function of the other feautures.&lt;/p&gt;
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;&quot;quality&quot;&lt;/code&gt; - a whole number between 1 &amp;amp; 10, is the output variable and what I will be trying to predict as an function of the other feautures.&lt;/p&gt;
 
 &lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;redWines&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;pd&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;read_csv&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'winequality-red.csv'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;delimiter&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
 &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;redWines&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'quality'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
