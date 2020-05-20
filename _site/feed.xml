@@ -1,4 +1,204 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2020-05-11T06:38:19-07:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Mitchell Hole</title><subtitle>Projects &amp; Experience</subtitle><entry><title type="html">Classification of red vs white wines</title><link href="http://localhost:4000/jekyll/update/2020/05/08/red-vs-white.html" rel="alternate" type="text/html" title="Classification of red vs white wines" /><published>2020-05-08T07:43:49-07:00</published><updated>2020-05-08T07:43:49-07:00</updated><id>http://localhost:4000/jekyll/update/2020/05/08/red-vs-white</id><content type="html" xml:base="http://localhost:4000/jekyll/update/2020/05/08/red-vs-white.html">&lt;h3 id=&quot;goal&quot;&gt;Goal&lt;/h3&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2020-05-20T06:26:45-07:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Mitchell Hole</title><subtitle>Projects &amp; Experience</subtitle><entry><title type="html">Cancer by County</title><link href="http://localhost:4000/jekyll/update/2020/05/14/Cancer-by-County.html" rel="alternate" type="text/html" title="Cancer by County" /><published>2020-05-14T07:43:49-07:00</published><updated>2020-05-14T07:43:49-07:00</updated><id>http://localhost:4000/jekyll/update/2020/05/14/Cancer-by-County</id><content type="html" xml:base="http://localhost:4000/jekyll/update/2020/05/14/Cancer-by-County.html">&lt;h3 id=&quot;goal&quot;&gt;Goal&lt;/h3&gt;
+
+&lt;p&gt;Complete &lt;a href=&quot;https://data.world/nrippner/ols-regression-challenge&quot;&gt;this online challenge&lt;/a&gt; and try to predict cancer mortality rates for US counties with linear regression.&lt;/p&gt;
+
+&lt;h3 id=&quot;data-collection&quot;&gt;Data Collection&lt;/h3&gt;
+
+&lt;p&gt;Downloaded via the above link, feature descriptions are there as well.&lt;/p&gt;
+
+&lt;h3 id=&quot;data-engineering&quot;&gt;Data Engineering&lt;/h3&gt;
+
+&lt;p&gt;Some of the features are immediately show signs of incorrectly entered values:&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;&lt;em&gt;Median Age&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/imgs/2020-05-14/boxplot1.png&quot; title=&quot;boxplot1&quot; /&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-Python&quot;&gt;countyData['MedianAge'].describe()
+count    3047.000000
+mean       45.272333
+std        45.304480
+min        22.300000
+25%        37.700000
+50%        41.000000
+75%        44.000000
+max       624.000000
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Given the values of the outliers I think it’s likely that these inputs have months as their unit.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-Python&quot;&gt;print(countyData[countyData['MedianAge'] &amp;lt; 100]['MedianAge'].max())
+print(countyData[countyData['MedianAge'] &amp;lt; 100]['MedianAge'].min())
+print(countyData[countyData['MedianAge'] &amp;gt; 100]['MedianAge'].max()/12)
+print(countyData[countyData['MedianAge'] &amp;gt; 100]['MedianAge'].min()/12)
+
+65.3
+22.3
+52.0
+29.1
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The outliers when divided by 12 are within the range of ‘normal’ inputs:&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;countyData.loc[countyData['MedianAge'] &amp;gt; 100, ['MedianAge']] = countyData.loc[countyData['MedianAge'] &amp;gt; 100]['MedianAge']/12&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;&lt;em&gt;Average Household Size&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/imgs/2020-05-14/boxplot2.png&quot; title=&quot;boxplot2&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;There are a number of outliers here.&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;countyData&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;countyData&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'AvgHouseholdSize'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;][&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'AvgHouseholdSize'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+
+&lt;span class=&quot;mi&quot;&gt;23&lt;/span&gt;      &lt;span class=&quot;mf&quot;&gt;0.0263&lt;/span&gt;
+&lt;span class=&quot;mi&quot;&gt;33&lt;/span&gt;      &lt;span class=&quot;mf&quot;&gt;0.0280&lt;/span&gt;
+&lt;span class=&quot;mi&quot;&gt;121&lt;/span&gt;     &lt;span class=&quot;mf&quot;&gt;0.0225&lt;/span&gt;
+&lt;span class=&quot;mi&quot;&gt;122&lt;/span&gt;     &lt;span class=&quot;mf&quot;&gt;0.0242&lt;/span&gt;
+&lt;span class=&quot;mi&quot;&gt;196&lt;/span&gt;     &lt;span class=&quot;mf&quot;&gt;0.0243&lt;/span&gt;
+         &lt;span class=&quot;o&quot;&gt;...&lt;/span&gt;  
+&lt;span class=&quot;mi&quot;&gt;2735&lt;/span&gt;    &lt;span class=&quot;mf&quot;&gt;0.0270&lt;/span&gt;
+&lt;span class=&quot;mi&quot;&gt;2768&lt;/span&gt;    &lt;span class=&quot;mf&quot;&gt;0.0260&lt;/span&gt;
+&lt;span class=&quot;mi&quot;&gt;2856&lt;/span&gt;    &lt;span class=&quot;mf&quot;&gt;0.0270&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Multiplying by 100 would put all of these values within the inner 2 quartiles of the distribution so I applied that transformation:&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;countyData.loc[countyData['AvgHouseholdSize'] &amp;lt; 1,['AvgHouseholdSize']] = countyData[countyData['AvgHouseholdSize'] &amp;lt; 1]['AvgHouseholdSize']*100&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;&lt;em&gt;avgDeathsPerYear &amp;amp; popEst2015&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Both of these were showing heavily right skewed distributions so I applied a logarithmic transformation to normalize it:&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;countyData&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'avgDeathsPerYear'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;np&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;countyData&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'avgDeathsPerYear'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;countyData&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'popEst2015'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;np&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;countyData&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'popEst2015'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;img src=&quot;/imgs/2020-05-14/hist1.png&quot; title=&quot;hist1&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/imgs/2020-05-14/hist2.png&quot; title=&quot;hist2&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;&lt;em&gt;Features Dropped&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;binnedInc&lt;/code&gt; column was dropped because it is a categorical feature that doesn’t provide any information that &lt;code class=&quot;highlighter-rouge&quot;&gt;medianIncome&lt;/code&gt; doesn’t.&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Geography&lt;/code&gt; was dropped as short of adding geographical coordinates there’s no information to be obtained here.&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;'avgAnnCount', 'PercentMarried', 'povertyPercent'&lt;/code&gt; were also dropped as they were highly correlated with other features:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/imgs/2020-05-14/heatmap.png&quot; title=&quot;heatmap&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;countyData = countyData.drop(columns=['binnedInc', 'Geography'])&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;&lt;em&gt;Missing Data&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;To check for NaN values and list columns with such values:&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;nan_values&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;countyData&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;isna&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;nan_columns&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;nan_values&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;any&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;columns_with_nan&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;countyData&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;columns&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;nan_columns&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;tolist&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;columns_with_nan&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://towardsdatascience.com/data-cleaning-with-python-and-pandas-detecting-missing-values-3e9c6ebcf78b&quot;&gt;source&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Replaced any NaNs with the median value of the column:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-Python&quot;&gt;median = countyData['PctSomeCol18_24'].median()
+countyData['PctSomeCol18_24'].fillna(median, inplace=True)
+
+median = countyData['PctEmployed16_Over'].median()
+countyData['PctEmployed16_Over'].fillna(median, inplace=True)
+
+median = countyData['PctPrivateCoverageAlone'].median()
+countyData['PctPrivateCoverageAlone'].fillna(median, inplace=True)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;&lt;em&gt;Feature Scaling&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Applied mean normalization:&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;countyData=(countyData-countyData.mean())/countyData.std()&lt;/code&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;results&quot;&gt;Results&lt;/h3&gt;
+
+&lt;p&gt;Training and validation score reflect the R2, Coefficient of determination, of the between the features and the target variable. The closer to 1 the more the features explain the target. The RMSE is how far the predictions are off on average.&lt;/p&gt;
+
+&lt;p&gt;Baseline (none of the above applied):&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Training Score: 0.52&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Validation Score: 0.51&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;RMSE = 19.68&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;With Data Cleaning:&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Training Score: 0.79&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Validation Score: 0.76&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;RMSE = 12.28&lt;/strong&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;code&quot;&gt;Code&lt;/h3&gt;
+
+&lt;p&gt;Libraries:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-Python&quot;&gt;import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import math
+from scipy import stats
+from sklearn.linear_model import LinearRegression
+from sklearn.pipeline import make_pipeline
+from sklearn.metrics import mean_squared_error
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import PolynomialFeatures
+import seaborn as sns
+from statsmodels.nonparametric.smoothers_lowess import lowess
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Data Engineering:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-Python&quot;&gt;countyData = pd.read_csv('cancer_reg.csv', encoding='latin-1')
+target = countyData['TARGET_deathRate']
+countyData = countyData.drop(columns=['TARGET_deathRate', 'binnedInc', 'Geography','PercentMarried', 'povertyPercent'])
+countyData.loc[countyData['MedianAge'] &amp;gt; 100, ['MedianAge']] = countyData.loc[countyData['MedianAge'] &amp;gt; 100]['MedianAge']/12
+countyData.loc[countyData['AvgHouseholdSize'] &amp;lt; 1,['AvgHouseholdSize']] = countyData[countyData['AvgHouseholdSize'] &amp;lt; 1]['AvgHouseholdSize']*100
+
+countyData['avgAnnCount'] = np.log(countyData['avgAnnCount'])
+countyData['avgDeathsPerYear'] = np.log(countyData['avgDeathsPerYear'])
+countyData['popEst2015'] = np.log(countyData['popEst2015'])
+
+median = countyData['PctSomeCol18_24'].median()
+countyData['PctSomeCol18_24'].fillna(median, inplace=True)
+
+median = countyData['PctEmployed16_Over'].median()
+countyData['PctEmployed16_Over'].fillna(median, inplace=True)
+
+median = countyData['PctPrivateCoverageAlone'].median()
+countyData['PctPrivateCoverageAlone'].fillna(median, inplace=True)
+
+countyData=(countyData-countyData.mean())/countyData.std()
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Model:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-Python&quot;&gt;trainingScore = 0
+validationScore = 0
+for i in range(0,500):
+    X_train, X_valid, y_train, y_valid = train_test_split(countyData, target, test_size=0.2)
+    model = make_pipeline(
+        LinearRegression()
+    )
+    model.fit(X_train, y_train.values)
+    trainingScore += model.score(X_train, y_train)
+    validationScore += model.score(X_valid, y_valid)
+print(trainingScore/500)
+print(validationScore/500)
+y_predicted = model.predict(X_valid)
+regression_model_mse = mean_squared_error(y_predicted, y_valid)
+print(math.sqrt(regression_model_mse))
+&lt;/code&gt;&lt;/pre&gt;</content><author><name></name></author><summary type="html">Goal</summary></entry><entry><title type="html">Classification of red vs white wines</title><link href="http://localhost:4000/jekyll/update/2020/05/08/red-vs-white.html" rel="alternate" type="text/html" title="Classification of red vs white wines" /><published>2020-05-08T07:43:49-07:00</published><updated>2020-05-08T07:43:49-07:00</updated><id>http://localhost:4000/jekyll/update/2020/05/08/red-vs-white</id><content type="html" xml:base="http://localhost:4000/jekyll/update/2020/05/08/red-vs-white.html">&lt;h3 id=&quot;goal&quot;&gt;Goal&lt;/h3&gt;
 
 &lt;p&gt;Build a classifier that differentiates between red and white whines based on chemical properties.&lt;/p&gt;
 

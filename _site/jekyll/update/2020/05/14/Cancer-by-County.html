@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.5.0 -->
+<title>Cancer by County | Mitchell Hole</title>
+<meta name="generator" content="Jekyll v3.8.5" />
+<meta property="og:title" content="Cancer by County" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Goal" />
+<meta property="og:description" content="Goal" />
+<link rel="canonical" href="http://localhost:4000/jekyll/update/2020/05/14/Cancer-by-County.html" />
+<meta property="og:url" content="http://localhost:4000/jekyll/update/2020/05/14/Cancer-by-County.html" />
+<meta property="og:site_name" content="Mitchell Hole" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2020-05-14T07:43:49-07:00" />
+<script type="application/ld+json">
+{"description":"Goal","@type":"BlogPosting","url":"http://localhost:4000/jekyll/update/2020/05/14/Cancer-by-County.html","headline":"Cancer by County","dateModified":"2020-05-14T07:43:49-07:00","datePublished":"2020-05-14T07:43:49-07:00","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/jekyll/update/2020/05/14/Cancer-by-County.html"},"@context":"http://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Mitchell Hole" /></head>
+<body><header class="site-header" role="banner">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Mitchell Hole</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/about/">About</a><a class="page-link" href="/education/">Education</a><a class="page-link" href="/Projects/">Projects</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">Cancer by County</h1>
+    <p class="post-meta">
+      <time class="dt-published" datetime="2020-05-14T07:43:49-07:00" itemprop="datePublished">May 14, 2020
+      </time></p>
+  </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <h3 id="goal">Goal</h3>
+
+<p>Complete <a href="https://data.world/nrippner/ols-regression-challenge">this online challenge</a> and try to predict cancer mortality rates for US counties with linear regression.</p>
+
+<h3 id="data-collection">Data Collection</h3>
+
+<p>Downloaded via the above link, feature descriptions are there as well.</p>
+
+<h3 id="data-engineering">Data Engineering</h3>
+
+<p>Some of the features are immediately show signs of incorrectly entered values:</p>
+
+<p><strong><em>Median Age</em></strong></p>
+
+<p><img src="/imgs/2020-05-14/boxplot1.png" title="boxplot1" /></p>
+
+<pre><code class="language-Python">countyData['MedianAge'].describe()
+count    3047.000000
+mean       45.272333
+std        45.304480
+min        22.300000
+25%        37.700000
+50%        41.000000
+75%        44.000000
+max       624.000000
+</code></pre>
+
+<p>Given the values of the outliers I think it’s likely that these inputs have months as their unit.</p>
+
+<pre><code class="language-Python">print(countyData[countyData['MedianAge'] &lt; 100]['MedianAge'].max())
+print(countyData[countyData['MedianAge'] &lt; 100]['MedianAge'].min())
+print(countyData[countyData['MedianAge'] &gt; 100]['MedianAge'].max()/12)
+print(countyData[countyData['MedianAge'] &gt; 100]['MedianAge'].min()/12)
+
+65.3
+22.3
+52.0
+29.1
+</code></pre>
+
+<p>The outliers when divided by 12 are within the range of ‘normal’ inputs:</p>
+
+<p><code class="highlighter-rouge">countyData.loc[countyData['MedianAge'] &gt; 100, ['MedianAge']] = countyData.loc[countyData['MedianAge'] &gt; 100]['MedianAge']/12</code></p>
+
+<p><strong><em>Average Household Size</em></strong></p>
+
+<p><img src="/imgs/2020-05-14/boxplot2.png" title="boxplot2" /></p>
+
+<p>There are a number of outliers here.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">countyData</span><span class="p">[</span><span class="n">countyData</span><span class="p">[</span><span class="s">'AvgHouseholdSize'</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">][</span><span class="s">'AvgHouseholdSize'</span><span class="p">]</span>
+
+<span class="mi">23</span>      <span class="mf">0.0263</span>
+<span class="mi">33</span>      <span class="mf">0.0280</span>
+<span class="mi">121</span>     <span class="mf">0.0225</span>
+<span class="mi">122</span>     <span class="mf">0.0242</span>
+<span class="mi">196</span>     <span class="mf">0.0243</span>
+         <span class="o">...</span>  
+<span class="mi">2735</span>    <span class="mf">0.0270</span>
+<span class="mi">2768</span>    <span class="mf">0.0260</span>
+<span class="mi">2856</span>    <span class="mf">0.0270</span>
+</code></pre></div></div>
+
+<p>Multiplying by 100 would put all of these values within the inner 2 quartiles of the distribution so I applied that transformation:</p>
+
+<p><code class="highlighter-rouge">countyData.loc[countyData['AvgHouseholdSize'] &lt; 1,['AvgHouseholdSize']] = countyData[countyData['AvgHouseholdSize'] &lt; 1]['AvgHouseholdSize']*100</code></p>
+
+<p><strong><em>avgDeathsPerYear &amp; popEst2015</em></strong></p>
+
+<p>Both of these were showing heavily right skewed distributions so I applied a logarithmic transformation to normalize it:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">countyData</span><span class="p">[</span><span class="s">'avgDeathsPerYear'</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">countyData</span><span class="p">[</span><span class="s">'avgDeathsPerYear'</span><span class="p">])</span>
+<span class="n">countyData</span><span class="p">[</span><span class="s">'popEst2015'</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">countyData</span><span class="p">[</span><span class="s">'popEst2015'</span><span class="p">])</span>
+</code></pre></div></div>
+
+<p><img src="/imgs/2020-05-14/hist1.png" title="hist1" /></p>
+
+<p><img src="/imgs/2020-05-14/hist2.png" title="hist2" /></p>
+
+<p><strong><em>Features Dropped</em></strong></p>
+
+<p><code class="highlighter-rouge">binnedInc</code> column was dropped because it is a categorical feature that doesn’t provide any information that <code class="highlighter-rouge">medianIncome</code> doesn’t.</p>
+
+<p><code class="highlighter-rouge">Geography</code> was dropped as short of adding geographical coordinates there’s no information to be obtained here.</p>
+
+<p><code class="highlighter-rouge">'avgAnnCount', 'PercentMarried', 'povertyPercent'</code> were also dropped as they were highly correlated with other features:</p>
+
+<p><img src="/imgs/2020-05-14/heatmap.png" title="heatmap" /></p>
+
+<p><code class="highlighter-rouge">countyData = countyData.drop(columns=['binnedInc', 'Geography'])</code></p>
+
+<p><strong><em>Missing Data</em></strong></p>
+
+<p>To check for NaN values and list columns with such values:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">nan_values</span> <span class="o">=</span> <span class="n">countyData</span><span class="o">.</span><span class="n">isna</span><span class="p">()</span>
+<span class="n">nan_columns</span> <span class="o">=</span> <span class="n">nan_values</span><span class="o">.</span><span class="nb">any</span><span class="p">()</span>
+<span class="n">columns_with_nan</span> <span class="o">=</span> <span class="n">countyData</span><span class="o">.</span><span class="n">columns</span><span class="p">[</span><span class="n">nan_columns</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+<span class="k">print</span><span class="p">(</span><span class="n">columns_with_nan</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p><a href="https://towardsdatascience.com/data-cleaning-with-python-and-pandas-detecting-missing-values-3e9c6ebcf78b">source</a></p>
+
+<p>Replaced any NaNs with the median value of the column:</p>
+
+<pre><code class="language-Python">median = countyData['PctSomeCol18_24'].median()
+countyData['PctSomeCol18_24'].fillna(median, inplace=True)
+
+median = countyData['PctEmployed16_Over'].median()
+countyData['PctEmployed16_Over'].fillna(median, inplace=True)
+
+median = countyData['PctPrivateCoverageAlone'].median()
+countyData['PctPrivateCoverageAlone'].fillna(median, inplace=True)
+</code></pre>
+
+<p><strong><em>Feature Scaling</em></strong></p>
+
+<p>Applied mean normalization:</p>
+
+<p><code class="highlighter-rouge">countyData=(countyData-countyData.mean())/countyData.std()</code></p>
+
+<h3 id="results">Results</h3>
+
+<p>Training and validation score reflect the R2, Coefficient of determination, of the between the features and the target variable. The closer to 1 the more the features explain the target. The RMSE is how far the predictions are off on average.</p>
+
+<p>Baseline (none of the above applied):</p>
+
+<p><strong>Training Score: 0.52</strong></p>
+
+<p><strong>Validation Score: 0.51</strong></p>
+
+<p><strong>RMSE = 19.68</strong></p>
+
+<p>With Data Cleaning:</p>
+
+<p><strong>Training Score: 0.79</strong></p>
+
+<p><strong>Validation Score: 0.76</strong></p>
+
+<p><strong>RMSE = 12.28</strong></p>
+
+<h3 id="code">Code</h3>
+
+<p>Libraries:</p>
+
+<pre><code class="language-Python">import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import math
+from scipy import stats
+from sklearn.linear_model import LinearRegression
+from sklearn.pipeline import make_pipeline
+from sklearn.metrics import mean_squared_error
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import PolynomialFeatures
+import seaborn as sns
+from statsmodels.nonparametric.smoothers_lowess import lowess
+</code></pre>
+
+<p>Data Engineering:</p>
+
+<pre><code class="language-Python">countyData = pd.read_csv('cancer_reg.csv', encoding='latin-1')
+target = countyData['TARGET_deathRate']
+countyData = countyData.drop(columns=['TARGET_deathRate', 'binnedInc', 'Geography','PercentMarried', 'povertyPercent'])
+countyData.loc[countyData['MedianAge'] &gt; 100, ['MedianAge']] = countyData.loc[countyData['MedianAge'] &gt; 100]['MedianAge']/12
+countyData.loc[countyData['AvgHouseholdSize'] &lt; 1,['AvgHouseholdSize']] = countyData[countyData['AvgHouseholdSize'] &lt; 1]['AvgHouseholdSize']*100
+
+countyData['avgAnnCount'] = np.log(countyData['avgAnnCount'])
+countyData['avgDeathsPerYear'] = np.log(countyData['avgDeathsPerYear'])
+countyData['popEst2015'] = np.log(countyData['popEst2015'])
+
+median = countyData['PctSomeCol18_24'].median()
+countyData['PctSomeCol18_24'].fillna(median, inplace=True)
+
+median = countyData['PctEmployed16_Over'].median()
+countyData['PctEmployed16_Over'].fillna(median, inplace=True)
+
+median = countyData['PctPrivateCoverageAlone'].median()
+countyData['PctPrivateCoverageAlone'].fillna(median, inplace=True)
+
+countyData=(countyData-countyData.mean())/countyData.std()
+</code></pre>
+
+<p>Model:</p>
+
+<pre><code class="language-Python">trainingScore = 0
+validationScore = 0
+for i in range(0,500):
+    X_train, X_valid, y_train, y_valid = train_test_split(countyData, target, test_size=0.2)
+    model = make_pipeline(
+        LinearRegression()
+    )
+    model.fit(X_train, y_train.values)
+    trainingScore += model.score(X_train, y_train)
+    validationScore += model.score(X_valid, y_valid)
+print(trainingScore/500)
+print(validationScore/500)
+y_predicted = model.predict(X_valid)
+regression_model_mse = mean_squared_error(y_predicted, y_valid)
+print(math.sqrt(regression_model_mse))
+</code></pre>
+
+  </div><a class="u-url" href="/jekyll/update/2020/05/14/Cancer-by-County.html" hidden></a>
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">Mitchell Hole</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">Mitchell Hole</li><li><a class="u-email" href="mailto:mhole@sfu.ca">mhole@sfu.ca</a></li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/mitch354"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">mitch354</span></a></li><li><a href="https://www.linkedin.com/in/mitchell-hole-3646a9162"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#linkedin"></use></svg> <span class="username">mitchell-hole-3646a9162</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>Projects &amp; Experience</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>
